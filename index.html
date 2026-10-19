@@ -81,6 +81,10 @@
   .period-trigger .pt-arrow { color:var(--slate-500); font-size:11px; margin-left:auto; padding-left:14px; white-space:nowrap;
                               transition:transform 220ms var(--ease-std), color 150ms var(--ease-std); }
   .period-trigger[aria-expanded="true"] .pt-arrow { transform:rotate(180deg); color:var(--brand); }
+  .nav-actions { display:flex; align-items:center; gap:10px; }
+  .nav-print { display:inline-flex; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-input); padding:8px 12px; cursor:pointer; font-family:var(--font-mono); font-size:13px; color:var(--ink); white-space:nowrap; transition:border-color 150ms var(--ease-std), box-shadow 150ms var(--ease-std); }
+  .nav-print:hover { border-color:var(--brand); }
+  .nav-print:focus-visible { outline:2px solid var(--brand); outline-offset:2px; }
   .period-popover { position:absolute; top:calc(100% + 8px); right:0; z-index:40; width:392px; max-width:calc(100vw - 48px);
                     background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
                     box-shadow:var(--shadow-2); padding:6px; }
@@ -268,7 +272,8 @@
         <a href="#s3">Директ</a>
         <a href="#s4">Конверсии</a>
       </div>
-      <div class="period-wrap">
+      <div class="nav-actions">
+        <div class="period-wrap">
         <button id="periodTrigger" class="period-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Выбрать период">
           <span class="pt-mode" id="ptMode">ПЕРИОД</span>
           <span class="pt-ix" id="ptIx">всё</span>
@@ -293,6 +298,8 @@
             <button class="pop-pre" data-preset="all" type="button">Всё</button>
           </div>
         </div>
+      </div>
+        <button id="printBtn" class="nav-print" type="button" title="Печать или сохранение в PDF">Сохранить в PDF</button>
       </div>
     </div>
   </div>
@@ -920,6 +927,10 @@
     });
     hideTip();
   });
+
+  /* ---------- save as PDF ---------- */
+  var printBtn = document.getElementById("printBtn");
+  if(printBtn){ printBtn.addEventListener("click", function(){ window.print(); }); }
 
   /* ---------- period picker (weeks | months) ---------- */
   var trigger = document.getElementById("periodTrigger");
