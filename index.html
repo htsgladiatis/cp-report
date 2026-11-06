@@ -170,7 +170,7 @@
   .lg .ln { width:14px; height:0; border-top:2px dashed var(--slate-500); position:relative; }
   .lg .ln::after { content:""; position:absolute; left:4px; top:-4px; width:6px; height:6px; border-radius:50%; background:var(--slate-500); }
   .chart-scroll { overflow-x:auto; }
-  .chart-wrap { position:relative; min-width:900px; }
+  .chart-wrap { position:relative; min-width:1620px; }
   .chart-wrap svg { display:block; width:100%; height:auto; }
   .bar { fill:var(--brand); rx:4; transition:fill 150ms var(--ease-std), opacity 220ms var(--ease-std); cursor:pointer; }
   .bar:hover, .bar:focus-visible { fill:var(--brand-strong); }
@@ -230,7 +230,73 @@
     .fn-val { font-size:17px; }
   }
 
-  @media print {
+  /* ---------- адаптив (только экран; печать ниже не трогаем) ---------- */
+  @media screen and (max-width:1024px) {
+    .wrap { padding:0 16px 56px; }
+    .card { padding:18px; }
+    .s1-duo { gap:0 20px; }
+  }
+  @media screen and (max-width:900px) {
+    .nav-inner { height:auto; padding:8px 16px; gap:10px; }
+    .nav-brand { display:none; }
+    .nav-right { width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0; }
+    .nav-links { overflow-x:auto; scrollbar-width:none; min-width:0; }
+    .nav-links::-webkit-scrollbar { display:none; }
+    .nav-links a { white-space:nowrap; }
+    .nav-actions { flex:0 0 auto; gap:8px; }
+    .period-trigger { min-width:0; padding:7px 10px; }
+    .nav-print { padding:7px 10px; }
+    .s1-duo { grid-template-columns:1fr; gap:0; }
+    .s1-duo .spec + .spec { margin-top:2px; }
+    .table-scroll { -webkit-overflow-scrolling:touch; }
+    .table-scroll table { min-width:720px; }
+    .table-scroll table th:first-child,
+    .table-scroll table td:first-child { position:sticky; left:0; z-index:2;
+      background:var(--surface); box-shadow:1px 0 0 var(--border); }
+    .table-scroll table thead th:first-child { background:var(--surface-2); }
+    .table-scroll table tr.total td:first-child { background:var(--surface-2); }
+    .chart-wrap { min-width:820px; }
+  }
+  @media screen and (max-width:640px) {
+    .wrap { padding:0 12px 44px; }
+    .nav-inner { padding:8px 12px; }
+    .nav-right { display:grid; grid-template-columns:1fr; gap:8px; }
+    .nav-actions { justify-content:space-between; }
+    .period-wrap { flex:1 1 auto; min-width:0; }
+    .period-trigger { width:100%; justify-content:flex-start; }
+    .period-trigger .pt-mode { display:none; }
+    .period-popover { left:0; right:auto; width:calc(100vw - 24px); }
+    .pop-list { max-height:min(288px, 45vh); }
+    .nav-links { order:2; }
+    section[id] { scroll-margin-top:118px; }
+    header.top { padding:16px; gap:14px; }
+    header.top img.logo { height:44px; }
+    h1 { font-size:22px; line-height:1.25; }
+    .kicker { font-size:10px; }
+    .kpi { padding:14px; }
+    .kpi .val { font-size:23px; }
+    .kpi .lab { min-height:0; }
+    .card { padding:14px; }
+    .nav-links a { font-size:12px; padding:5px 8px; }
+    .nav-print { font-size:11.5px; }
+    .period-trigger { font-size:12px; gap:8px; }
+    .table-scroll table { min-width:660px; font-size:12px; }
+    .chart-wrap { min-width:740px; }
+    .fn-val { font-size:16px; }
+    .fn-name { font-size:12.5px; }
+    .st-nums { font-size:12px; }
+    .spec { font-size:12.5px; }
+  }
+  @media screen and (max-width:420px) {
+    .nav-print { padding:6px 8px; }
+    .period-trigger { padding:6px 8px; }
+    .kpi .val { font-size:21px; }
+    .table-scroll table { min-width:620px; }
+    .chart-wrap { min-width:700px; }
+    h1 { font-size:20px; }
+  }
+
+    @media print {
     @page { size:A4; margin:12mm; }
     html { scroll-behavior:auto; }
     body { background:#fff; font-size:10.5pt; }
@@ -408,14 +474,14 @@
     <div class="table-scroll">
       <table class="spec" style="margin-top:16px">
         <thead>
-          <tr><th>Показатель</th><th class="num" data-col="p1">29-4.10</th><th class="num" data-col="p2">5-11.10</th><th class="num" data-col="p3">12-18.10</th><th class="num" data-col="p4">19-25.10</th><th class="num" data-col="p5">26-31.10</th><th class="num" data-col="all">Итого</th></tr>
+          <tr><th>Показатель</th><th class="num" data-col="p1">29-4.10</th><th class="num" data-col="p2">5-11.10</th><th class="num" data-col="p3">12-18.10</th><th class="num" data-col="p4">19-25.10</th><th class="num" data-col="p5">26-31.10</th><th class="num" data-col="p6">02-06.11</th><th class="num" data-col="all">Итого</th></tr>
         </thead>
         <tbody>
           <tr><td>Лиды всего</td><td class="num" data-col="p1">9</td><td class="num" data-col="p2">26</td><td class="num" data-col="p3">12</td><td class="num" data-col="p4">32</td><td class="num" data-col="p5">36</td><td class="num" data-col="all">115</td></tr>
           <tr><td>заявки (формы)</td><td class="num" data-col="p1">4</td><td class="num" data-col="p2">14</td><td class="num" data-col="p3">6</td><td class="num" data-col="p4">11</td><td class="num" data-col="p5">14</td><td class="num" data-col="all">49</td></tr>
           <tr><td>входящие звонки</td><td class="num" data-col="p1">5</td><td class="num" data-col="p2">12</td><td class="num" data-col="p3">6</td><td class="num" data-col="p4">21</td><td class="num" data-col="p5">22</td><td class="num" data-col="all">66</td></tr>
-          <tr><td>Целевые лиды (ЦЛ)</td><td class="num" data-col="p1">4</td><td class="num" data-col="p2">6</td><td class="num" data-col="p3">2</td><td class="num" data-col="p4">2</td><td class="num" data-col="p5">4</td><td class="num" data-col="all">18</td></tr>
-          <tr><td>Конверсия лид → ЦЛ</td><td class="num" data-col="p1">44,4%</td><td class="num" data-col="p2">23,1%</td><td class="num" data-col="p3">16,7%</td><td class="num" data-col="p4">6,3%</td><td class="num" data-col="p5">11,1%</td><td class="num" data-col="all">15,7%</td></tr>
+          <tr><td>Целевые лиды (ЦЛ)</td><td class="num" data-col="p1">4</td><td class="num" data-col="p2">6</td><td class="num" data-col="p3">2</td><td class="num" data-col="p4">2</td><td class="num" data-col="p5">4</td><td class="num" data-col="p6">5</td><td class="num" data-col="all">23</td></tr>
+          <tr><td>Конверсия лид → ЦЛ</td><td class="num" data-col="p1">44,4%</td><td class="num" data-col="p2">23,1%</td><td class="num" data-col="p3">16,7%</td><td class="num" data-col="p4">6,3%</td><td class="num" data-col="p5">11,1%</td><td class="num" data-col="p6">21,7%</td><td class="num" data-col="all">16,7%</td></tr>
           <tr><td>Расход Директа, ₽</td><td class="num" data-col="p1">12 802,98</td><td class="num" data-col="p2">45 958,85</td><td class="num" data-col="p3">75 714,98</td><td class="num" data-col="p4">75 437,77</td><td class="num" data-col="p5">66 934,55</td><td class="num" data-col="all">276 849,13</td></tr>
           <tr><td>Клики</td><td class="num" data-col="p1">60</td><td class="num" data-col="p2">103</td><td class="num" data-col="p3">68</td><td class="num" data-col="p4">57</td><td class="num" data-col="p5">120</td><td class="num" data-col="all">408</td></tr>
           <tr><td>Показы</td><td class="num" data-col="p1">815</td><td class="num" data-col="p2">1 401</td><td class="num" data-col="p3">1 528</td><td class="num" data-col="p4">1 532</td><td class="num" data-col="p5">1 828</td><td class="num" data-col="all">7 104</td></tr>
@@ -446,7 +512,7 @@
       <div class="chart-scroll">
         <div class="chart-wrap" id="chartWrap">
           <div class="tip" id="chartTip" role="status"></div>
-          <svg id="chart" viewBox="0 0 1440 300">
+          <svg id="chart" viewBox="0 0 1620 300">
             <title id="chartTitle">График расхода и кликов по дням</title>
             <desc id="chartDesc">Пик расхода 28.10; выходные 03–04.10 и 17–18.10 — строк в выгрузке нет; за 09–11.10 выгрузки нет.</desc>
             <defs>
@@ -505,6 +571,16 @@
             <rect class="bar" data-i="23" data-period="p5" data-date="29.10.2026" tabindex="0" x="1277" y="123.8" width="28" height="134.2" aria-label="29.10.2026: расход 16 340,69 ₽, клики 13"></rect>
             <rect class="bar" data-i="24" data-period="p5" data-date="30.10.2026" tabindex="0" x="1317" y="160.0" width="28" height="98.0" aria-label="30.10.2026: расход 11 932,72 ₽, клики 14"></rect>
             <rect class="bar" data-i="25" data-period="p5" data-date="31.10.2026" tabindex="0" x="1357" y="257.0" width="28" height="1.0" aria-label="31.10.2026: расход 125,61 ₽, клики 1"></rect>
+            <rect class="bar" data-i="26" data-period="p6" data-date="02.11.2026" tabindex="0" x="1411" y="134.8" width="28" height="123.2" aria-label="02.11.2026: расход 15 002,55 ₽, клики 12">
+            </rect>
+            <rect class="bar" data-i="27" data-period="p6" data-date="03.11.2026" tabindex="0" x="1451" y="53.9" width="28" height="204.1" aria-label="03.11.2026: расход 24 857,28 ₽, клики 20">
+            </rect>
+            <rect class="bar" data-i="28" data-period="p6" data-date="04.11.2026" tabindex="0" x="1491" y="212.8" width="28" height="45.2" aria-label="04.11.2026: расход 5 497,90 ₽, клики 6">
+            </rect>
+            <rect class="bar" data-i="29" data-period="p6" data-date="05.11.2026" tabindex="0" x="1531" y="88.5" width="28" height="169.5" aria-label="05.11.2026: расход 20 638,85 ₽, клики 25">
+            </rect>
+            <rect class="bar" data-i="30" data-period="p6" data-date="06.11.2026" tabindex="0" x="1571" y="228.0" width="28" height="30.0" aria-label="06.11.2026: расход 3 651,19 ₽, клики 3">
+            </rect>
             <g class="cl-seg" data-period="p1">
               <polyline class="cl-line" points="91.0,217.8 131.0,143.0 171.0,143.0 211.0,183.2"></polyline>
               <circle class="cl-dot" cx="91.0" cy="217.8" r="4"></circle>
@@ -546,6 +622,14 @@
               <circle class="cl-dot" cx="1331.0" cy="177.5" r="4"></circle>
               <circle class="cl-dot" cx="1371.0" cy="252.25" r="4"></circle>
             </g>
+            <g class="cl-seg" data-period="p6">
+              <polyline class="cl-line" points="1425.0,189.0 1465.0,143.0 1505.0,223.5 1545.0,114.25 1585.0,240.75"></polyline>
+              <circle class="cl-dot" cx="1425.0" cy="189.0" r="4"></circle>
+              <circle class="cl-dot" cx="1465.0" cy="143.0" r="4"></circle>
+              <circle class="cl-dot" cx="1505.0" cy="223.5" r="4"></circle>
+              <circle class="cl-dot" cx="1545.0" cy="114.25" r="4"></circle>
+              <circle class="cl-dot" cx="1585.0" cy="240.75" r="4"></circle>
+            </g>
             <text class="dlab" x="91.0" y="276" text-anchor="middle">29.09</text>
             <text class="dlab alt" x="131.0" y="276" text-anchor="middle">30.09</text>
             <text class="dlab" x="171.0" y="276" text-anchor="middle">01.10</text>
@@ -579,6 +663,11 @@
             <text class="dlab" x="1291.0" y="276" text-anchor="middle">29.10</text>
             <text class="dlab alt" x="1331.0" y="276" text-anchor="middle">30.10</text>
             <text class="dlab" x="1371.0" y="276" text-anchor="middle">31.10</text>
+            <text class="dlab" x="1425.0" y="276" text-anchor="middle">02.11</text>
+            <text class="dlab" x="1465.0" y="276" text-anchor="middle">03.11</text>
+            <text class="dlab" x="1505.0" y="276" text-anchor="middle">04.11</text>
+            <text class="dlab" x="1545.0" y="276" text-anchor="middle">05.11</text>
+            <text class="dlab" x="1585.0" y="276" text-anchor="middle">06.11</text>
           </svg>
         </div>
       </div>
@@ -617,7 +706,12 @@
           <tr data-period="p5" data-date="29.10.2026"><td>29.10.2026</td><td class="num">16 340,69</td><td class="num">13</td><td class="num">316</td><td class="num">4,11%</td><td class="num">1 257</td><td class="num">242</td><td class="num">30,77%</td><td class="num">1,38</td></tr>
           <tr data-period="p5" data-date="30.10.2026"><td>30.10.2026</td><td class="num">11 932,72</td><td class="num">14</td><td class="num">311</td><td class="num">4,50%</td><td class="num">852</td><td class="num">229</td><td class="num">21,43%</td><td class="num">1,50</td></tr>
           <tr data-period="p5" data-date="31.10.2026"><td>31.10.2026</td><td class="num">125,61</td><td class="num">1</td><td class="num">93</td><td class="num">1,08%</td><td class="num">126</td><td class="num">72</td><td class="num">0,00%</td><td class="num">1,50</td></tr>
-          <tr class="total"><td>Итого</td><td class="num">276 849,13</td><td class="num">408</td><td class="num">7 104</td><td class="num">5,74%</td><td class="num">679</td><td class="num">5 037</td><td class="num">28,37%</td><td class="num">1,23</td></tr>
+          <tr data-period="p6" data-date="02.11.2026"><td>02.11.2026</td><td class="num">15 002,55</td><td class="num">12</td><td class="num">345</td><td class="num">3,48%</td><td class="num">1 250</td><td class="num">—</td><td class="num">33,33%</td><td class="num">1,08</td></tr>
+          <tr data-period="p6" data-date="03.11.2026"><td>03.11.2026</td><td class="num">24 857,28</td><td class="num">20</td><td class="num">302</td><td class="num">6,62%</td><td class="num">1 243</td><td class="num">—</td><td class="num">44,44%</td><td class="num">1,22</td></tr>
+          <tr data-period="p6" data-date="04.11.2026"><td>04.11.2026</td><td class="num">5 497,90</td><td class="num">6</td><td class="num">139</td><td class="num">4,32%</td><td class="num">916</td><td class="num">—</td><td class="num">42,86%</td><td class="num">1,43</td></tr>
+          <tr data-period="p6" data-date="05.11.2026"><td>05.11.2026</td><td class="num">20 638,85</td><td class="num">25</td><td class="num">362</td><td class="num">6,91%</td><td class="num">826</td><td class="num">—</td><td class="num">30,00%</td><td class="num">1,23</td></tr>
+          <tr data-period="p6" data-date="06.11.2026"><td>06.11.2026</td><td class="num">3 651,19</td><td class="num">3</td><td class="num">71</td><td class="num">4,23%</td><td class="num">1 217</td><td class="num">—</td><td class="num">25,00%</td><td class="num">1,00</td></tr>
+          <tr class="total"><td>Итого</td><td class="num">346 496,90</td><td class="num">474</td><td class="num">8 323</td><td class="num">5,70%</td><td class="num">731</td><td class="num">5 925</td><td class="num">29,42%</td><td class="num">1,23</td></tr>
         </tbody>
       </table>
     </div>
@@ -634,22 +728,22 @@
       </div>
       <div class="fn">
         <div class="fn-row step-0">
-          <div class="fn-top"><span class="fn-name">Показы</span><span class="fn-val"><span data-fn="impr">7 104</span></span></div>
+          <div class="fn-top"><span class="fn-name">Показы</span><span class="fn-val"><span data-fn="impr">8 323</span></span></div>
           <div class="fn-track"><div class="fn-bar" data-fn-bar="impr" style="width:100%"></div></div>
         </div>
-        <div class="fn-step"><span class="fn-conv">CTR <b data-fn="ctr">5,74%</b></span></div>
+        <div class="fn-step"><span class="fn-conv">CTR <b data-fn="ctr">5,70%</b></span></div>
         <div class="fn-row step-1">
-          <div class="fn-top"><span class="fn-name">Клики</span><span class="fn-val"><span data-fn="clicks">408</span></span></div>
+          <div class="fn-top"><span class="fn-name">Клики</span><span class="fn-val"><span data-fn="clicks">474</span></span></div>
           <div class="fn-track"><div class="fn-bar" data-fn-bar="clicks" style="width:5.8%"></div></div>
         </div>
-        <div class="fn-step"><span class="fn-conv">клик → лид <b data-fn="clickLead">28,2%</b></span></div>
+        <div class="fn-step"><span class="fn-conv">клик → лид <b data-fn="clickLead">29,1%</b></span></div>
         <div class="fn-row step-2">
-          <div class="fn-top"><span class="fn-name">Лиды</span><span class="fn-val"><span data-fn="leads">115</span></span></div>
+          <div class="fn-top"><span class="fn-name">Лиды</span><span class="fn-val"><span data-fn="leads">138</span></span></div>
           <div class="fn-track"><div class="fn-bar" data-fn-bar="leads" style="width:1.6%"></div></div>
         </div>
-        <div class="fn-step"><span class="fn-conv">лид → ЦЛ <b data-fn="convCL">15,7%</b></span></div>
+        <div class="fn-step"><span class="fn-conv">лид → ЦЛ <b data-fn="convCL">16,7%</b></span></div>
         <div class="fn-row step-3">
-          <div class="fn-top"><span class="fn-name">Целевые лиды</span><span class="fn-val"><span data-fn="cl">18</span></span></div>
+          <div class="fn-top"><span class="fn-name">Целевые лиды</span><span class="fn-val"><span data-fn="cl">23</span></span></div>
           <div class="fn-track"><div class="fn-bar" data-fn-bar="cl" style="width:0.6%"></div></div>
         </div>
       </div>
@@ -658,13 +752,13 @@
     <div class="table-scroll">
       <table class="spec" style="margin-top:16px">
         <thead>
-          <tr><th>Этап</th><th class="num" data-col="p1">29-4.10</th><th class="num" data-col="p2">5-11.10</th><th class="num" data-col="p3">12-18.10</th><th class="num" data-col="p4">19-25.10</th><th class="num" data-col="p5">26-31.10</th><th class="num" data-col="all">Итого</th></tr>
+          <tr><th>Этап</th><th class="num" data-col="p1">29-4.10</th><th class="num" data-col="p2">5-11.10</th><th class="num" data-col="p3">12-18.10</th><th class="num" data-col="p4">19-25.10</th><th class="num" data-col="p5">26-31.10</th><th class="num" data-col="p6">02-06.11</th><th class="num" data-col="all">Итого</th></tr>
         </thead>
         <tbody>
           <tr><td>Показ → клик (CTR)</td><td class="num" data-col="p1">7,36%</td><td class="num" data-col="p2">7,35%</td><td class="num" data-col="p3">4,45%</td><td class="num" data-col="p4">3,72%</td><td class="num" data-col="p5">6,56%</td><td class="num" data-col="all">5,74%</td></tr>
-          <tr><td>Клик → лид</td><td class="num" data-col="p1">15,0%</td><td class="num" data-col="p2">25,2%</td><td class="num" data-col="p3">17,6%</td><td class="num" data-col="p4">56,1%</td><td class="num" data-col="p5">30,0%</td><td class="num" data-col="all">28,2%</td></tr>
-          <tr><td>Клик → ЦЛ</td><td class="num" data-col="p1">6,7%</td><td class="num" data-col="p2">5,8%</td><td class="num" data-col="p3">2,9%</td><td class="num" data-col="p4">3,5%</td><td class="num" data-col="p5">3,3%</td><td class="num" data-col="all">4,4%</td></tr>
-          <tr><td>Лид → ЦЛ</td><td class="num" data-col="p1">44,4%</td><td class="num" data-col="p2">23,1%</td><td class="num" data-col="p3">16,7%</td><td class="num" data-col="p4">6,3%</td><td class="num" data-col="p5">11,1%</td><td class="num" data-col="all">15,7%</td></tr>
+          <tr><td>Клик → лид</td><td class="num" data-col="p1">15,0%</td><td class="num" data-col="p2">25,2%</td><td class="num" data-col="p3">17,6%</td><td class="num" data-col="p4">56,1%</td><td class="num" data-col="p5">30,0%</td><td class="num" data-col="p6">34,8%</td><td class="num" data-col="all">29,1%</td></tr>
+          <tr><td>Клик → ЦЛ</td><td class="num" data-col="p1">6,7%</td><td class="num" data-col="p2">5,8%</td><td class="num" data-col="p3">2,9%</td><td class="num" data-col="p4">3,5%</td><td class="num" data-col="p5">3,3%</td><td class="num" data-col="p6">7,6%</td><td class="num" data-col="all">4,9%</td></tr>
+          <tr><td>Лид → ЦЛ</td><td class="num" data-col="p1">44,4%</td><td class="num" data-col="p2">23,1%</td><td class="num" data-col="p3">16,7%</td><td class="num" data-col="p4">6,3%</td><td class="num" data-col="p5">11,1%</td><td class="num" data-col="p6">21,7%</td><td class="num" data-col="all">16,7%</td></tr>
         </tbody>
       </table>
     </div>
@@ -682,9 +776,11 @@
     p3:  { title:"12 – 18 октября 2026", lede:"Период: 7 дней. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 12.10–16.10, 17–18.10 — выходные.", label:"12-18.10", leads:12, forms:6, calls:6, cl:2, convCL:16.7, spend:75714.98, clicks:68, impr:1528, ctr:4.45, cpc:1113, cpl:6310, clCost:37857, clickLead:17.6, clickCL:2.9, reach:1098, bounce:35.82, depth:1.19 },
     p4:  { title:"19 – 25 октября 2026", lede:"Период: 7 дней. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 19.10–25.10.", label:"19-25.10", leads:32, forms:11, calls:21, cl:2, convCL:6.3, spend:75437.77, clicks:57, impr:1532, ctr:3.72, cpc:1323, cpl:2357, clCost:37719, clickLead:56.1, clickCL:3.5, reach:1125, bounce:31.98, depth:1.28 },
     p5:  { title:"26 – 31 октября 2026", lede:"Период: 6 дней. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Автотаргетинг» № 715388324. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 26.10–31.10.", label:"26-31.10", leads:36, forms:14, calls:22, cl:4, convCL:11.1, spend:66934.55, clicks:120, impr:1828, ctr:6.56, cpc:558, cpl:1859, clCost:16734, clickLead:30.0, clickCL:3.3, reach:1298, bounce:33.25, depth:1.24 },
-    all: { title:"29 сентября – 31 октября 2026", noExport:true, lede:"Период: 33 дня. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469, с 26.10 — «Автотаргетинг» № 715388324. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 29.09–08.10, 12–16.10 и 19–31.10; за 09–11.10 выгрузки не было.", label:"Итого", leads:115, forms:49, calls:66, cl:18, convCL:15.7, spend:276849.13, clicks:408, impr:7104, ctr:5.74, cpc:679, cpl:2407, clCost:15381, clickLead:28.2, clickCL:4.4, reach:5037, bounce:28.37, depth:1.23, cols:[] },
+    p6:  { title:"2 – 6 ноября 2026", lede:"Период: 5 дней. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Автотаргетинг» № 715388324. Лиды: заявки и звонки — по CRM Bitrix24 (сущность «Лид», Директ и прозвон; дедуп по телефону); ЦЛ — статус «Качественный» и/или ❤, 👍 (👎 — нет). Выгрузка Директа: 02.11–06.11.", label:"02-06.11", leads:23, forms:8, calls:15, cl:5, convCL:21.7, spend:69647.77, clicks:66, impr:1219, ctr:5.41, cpc:1055, cpl:3028, clCost:13930, clickLead:34.8, clickCL:7.6, reach:888, bounce:35.92, depth:1.21 },
+    all: { title:"29 сентября – 6 ноября 2026", noExport:true, lede:"Период: 38 дней (01.11 вне выгрузок отчёта). Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469, с 26.10 — «Автотаргетинг» № 715388324. Лиды: заявки и звонки — по выгрузке CRM/CRM Bitrix24 (сущность «Лид», Директ и прозвон; дедуп по телефону); ЦЛ — целевые заявки с ❤/👍 и статусы «Качественный» (и целевые звонки; 👎 — нет). Выгрузка Директа: 29.09–08.10, 12–16.10, 19–31.10 и 02–06.11; за 09–11.10 и 01.11 выгрузок в отчёте нет.", label:"Итого", leads:138, forms:57, calls:81, cl:23, convCL:16.7, spend:346496.90, clicks:474, impr:8323, ctr:5.70, cpc:731, cpl:2511, clCost:15065, clickLead:29.1, clickCL:4.9, reach:5925, bounce:29.42, depth:1.23, cols:[] },
     m09: { title:"Сентябрь 2026", lede:"Период: 29–30 сентября 2026. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 29.09–30.09. Лиды, ЦЛ и звонки — по датам CRM.", label:"Сентябрь 2026", leads:5, forms:3, calls:2, cl:3, convCL:60.0, spend:6416.88, clicks:27, impr:326, ctr:8.28, cpc:238, cpl:1283, clCost:2139, clickLead:18.5, clickCL:11.1, reach:228, bounce:18.91, depth:1.35, month:true, from:"29.09.2026", to:"30.09.2026", cols:[] },
-    m10: { title:"Октябрь 2026", noExport:true, lede:"Период: 1–31 октября 2026. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469, с 26.10 — «Автотаргетинг» № 715388324. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 01.10–02.10, 05.10–08.10, 12.10–16.10, 19.10–31.10. Лиды, ЦЛ и звонки — по датам CRM.", label:"Октябрь 2026", leads:110, forms:46, calls:64, cl:15, convCL:13.6, spend:270432.25, clicks:381, impr:6778, ctr:5.62, cpc:710, cpl:2458, clCost:18029, clickLead:28.9, clickCL:3.9, reach:4809, bounce:29.04, depth:1.22, month:true, from:"01.10.2026", to:"31.10.2026", cols:[] }
+    m10: { title:"Октябрь 2026", noExport:true, lede:"Период: 1–31 октября 2026. Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Поиск Москва и МО» № 714887469, с 26.10 — «Автотаргетинг» № 715388324. Лиды: заявки и звонки — по выгрузке CRM; ЦЛ — целевые звонки и заявки с ❤ или 👍. Выгрузка Директа: 01.10–02.10, 05.10–08.10, 12.10–16.10, 19.10–31.10. Лиды, ЦЛ и звонки — по датам CRM.", label:"Октябрь 2026", leads:110, forms:46, calls:64, cl:15, convCL:13.6, spend:270432.25, clicks:381, impr:6778, ctr:5.62, cpc:710, cpl:2458, clCost:18029, clickLead:28.9, clickCL:3.9, reach:4809, bounce:29.04, depth:1.22, month:true, from:"01.10.2026", to:"31.10.2026", cols:[] },
+    m11: { month:true, title:"Ноябрь 2026 · 02–06 ноября", lede:"Период: 02–06 ноября (частичный). Канал: Яндекс Директ, кабинет porg-ndso3qwm, кампания «Автотаргетинг» № 715388324. Лиды, заявки, звонки и ЦЛ — по CRM Bitrix24 (сущность «Лид», Директ и прозвон; дедуп по телефону). Выгрузка Директа: 02.11–06.11. Лиды, ЦЛ и звонки — по датам CRM.", label:"Ноябрь 2026", from:"02.11.2026", to:"06.11.2026", leads:23, forms:8, calls:15, cl:5, convCL:21.7, spend:69647.77, clicks:66, impr:1219, ctr:5.41, cpc:1055, cpl:3028, clCost:13930, clickLead:34.8, clickCL:7.6, reach:888, bounce:35.92, depth:1.21, cols:["p6"] }
   };
 
   var DAYS = [
@@ -714,6 +810,11 @@
     { date:"29.10.2026", spend:16340.69, clicks:13, impr:316, ctr:4.11, cpc:1257, bounce:30.77, depth:"1,38" },
     { date:"30.10.2026", spend:11932.72, clicks:14, impr:311, ctr:4.50, cpc:852, bounce:21.43, depth:"1,50" },
     { date:"31.10.2026", spend:125.61, clicks:1, impr:93, ctr:1.08, cpc:126, bounce:0.00, depth:"1,50" },
+    { date:"02.11.2026", spend:15002.55, clicks:12, impr:345, ctr:4.35, cpc:1250, bounce:33.33, depth:"1,08" },
+    { date:"03.11.2026", spend:24857.28, clicks:20, impr:302, ctr:8.23, cpc:1243, bounce:44.44, depth:"1,22" },
+    { date:"04.11.2026", spend:5497.90, clicks:6, impr:139, ctr:3.96, cpc:916, bounce:42.86, depth:"1,43" },
+    { date:"05.11.2026", spend:20638.85, clicks:25, impr:362, ctr:6.91, cpc:826, bounce:30.00, depth:"1,23" },
+    { date:"06.11.2026", spend:3651.19, clicks:3, impr:71, ctr:4.23, cpc:1217, bounce:25.00, depth:"1,00" },
   ];
 
   /* ---------- helpers ---------- */
@@ -775,7 +876,7 @@
 
   /* ---------- period control ---------- */
   var current = "all";
-  var ORDER = ["p1","p2","p3","p4","p5","all"];
+  var ORDER = ["p1","p2","p3","p4","p5","p6","all"];
 
   var WEEKS = [
     { id:"p1",  ix:"w1",  dates:"29.09 – 04.10", from:"29.09.2026", to:"04.10.2026", leads:9,  cl:4,  text:"w1 29.09 04.10 29-4.10" },
@@ -783,11 +884,13 @@
     { id:"p3",  ix:"w3",  dates:"12.10 – 18.10", from:"12.10.2026", to:"18.10.2026", leads:12, cl:2,  text:"w3 12.10 18.10 12-18.10" },
     { id:"p4",  ix:"w4",  dates:"19.10 – 25.10", from:"19.10.2026", to:"25.10.2026", leads:32, cl:2,  text:"w4 19.10 25.10 19-25.10" },
     { id:"p5",  ix:"w5",  dates:"26.10 – 31.10", from:"26.10.2026", to:"31.10.2026", leads:36, cl:4,  text:"w5 26.10 31.10 26-31.10" },
-    { id:"all", ix:"всё", dates:"29.09 – 31.10", from:"29.09.2026", to:"31.10.2026", leads:115, cl:18, text:"всё итого 29.09 31.10 весь период" }
+    { id:"p6",  ix:"w6",  dates:"02.11 – 06.11", from:"02.11.2026", to:"06.11.2026", leads:23, cl:5,  text:"w6 02.11 06.11 2-6.11 02-06.11" },
+    { id:"all", ix:"∑", dates:"29.09 – 06.11", from:"29.09.2026", to:"06.11.2026", leads:138, cl:23, text:"∑ итого 29.09 06.11 весь весь период" }
   ];
   var MONTHS = [
     { id:"m09", ix:"сен", dates:"29.09 – 30.09", from:"29.09.2026", to:"30.09.2026", cl:3, calls:2, meta:"ЦЛ 3 / лидов 5", text:"сентябрь 2026 29.09 30.09" },
-    { id:"m10", ix:"окт", dates:"01.10 – 31.10", from:"01.10.2026", to:"31.10.2026", cl:15, calls:64, meta:"ЦЛ 15 / лидов 110", text:"октябрь 2026 01.10 31.10" }
+    { id:"m10", ix:"окт", dates:"01.10 – 31.10", from:"01.10.2026", to:"31.10.2026", cl:15, calls:64, meta:"ЦЛ 15 / лидов 110", text:"октябрь 2026 01.10 31.10" },
+    { id:"m11", ix:"ноя", dates:"02.11 – 06.11", from:"02.11.2026", to:"06.11.2026", cl:5, calls:15, meta:"ЦЛ 5 / лидов 23", text:"ноябрь 2026 02.11 06.11" }
   ];
 
   /* ---------- KPI ---------- */
@@ -947,7 +1050,7 @@
       else lit = bar.getAttribute("data-period") === current;
       bar.classList.toggle("dim", !lit);
     });
-    var SEG = { p1:["29.09.2026","02.10.2026"], p2:["05.10.2026","08.10.2026"], p3:["12.10.2026","16.10.2026"], p4:["19.10.2026","25.10.2026"], p5:["26.10.2026","31.10.2026"] };
+    var SEG = { p1:["29.09.2026","02.10.2026"], p2:["05.10.2026","08.10.2026"], p3:["12.10.2026","16.10.2026"], p4:["19.10.2026","25.10.2026"], p5:["26.10.2026","31.10.2026"], p6:["02.11.2026","06.11.2026"] };
     document.querySelectorAll("#chart .cl-seg").forEach(function(g){
       var key = g.getAttribute("data-period"), r = SEG[key], segLit;
       if(current === "all") segLit = true;
