@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ComandaPRO · план по каналу</title>
+<title>ComandaPRO · план на ноябрь по каналам</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -12,62 +12,77 @@
     --ink:#101C28; --ink-soft:#1A2C3E; --slate-700:#334155; --slate-600:#475569; --slate-500:#64748B;
     --brand:#0060FC; --brand-strong:#004CCC; --brand-soft:#E6EFFF;
     --canvas:#F2F4F8; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#DDE3EA;
+    --orange:#E8833A; --orange-dark:#D9722E; --orange-soft:#FBF0E2;
+    --dark:#1F2937; --dark-soft:#E5E7EB;
     --font-sans:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --r-card:12px;
+    --r-card:10px;
   }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--canvas); color:var(--ink); font-family:var(--font-sans); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
   .wrap { max-width:1100px; margin:0 auto; padding:0 24px 48px; }
   h2 { font-size:20px; font-weight:700; margin:0 0 16px; letter-spacing:-.01em; }
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); padding:0; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; }
   .card-inner { padding:20px 24px; }
   table { width:100%; border-collapse:collapse; font-size:14px; }
-  table.spec { border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; }
-  thead th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--slate-600); background:var(--surface-2); padding:11px 16px; font-weight:600; border-bottom:1px solid var(--border); }
+  thead th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:#fff; background:var(--dark); padding:11px 16px; font-weight:600; border-bottom:1px solid var(--border); }
   thead th.num { text-align:right; }
   td { padding:11px 16px; border-top:1px solid var(--border); vertical-align:top; color:var(--ink-soft); }
   td.num, th.num { text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
-  tr.total td { background:var(--surface-2); font-weight:700; color:var(--ink); }
-  tr.total { border-top:1px solid var(--border); }
-  .chan { font-weight:700; color:var(--ink); }
-  .chan-sub { display:block; font-size:13px; color:var(--slate-600); margin-top:2px; }
+  tr.channel td { background:var(--orange-soft); color:var(--ink); font-weight:700; }
+  tr.channel td.num { color:var(--ink); }
+  tr.channel td .chan { color:var(--ink); font-weight:700; }
+  tr.channel td .chan-sub { display:block; font-size:13px; color:var(--slate-600); margin-top:2px; font-weight:500; }
+  tr.total td { background:var(--surface-2); font-weight:700; color:var(--ink); border-top:1px solid var(--border); }
+  tr.ref td { background:var(--dark); color:var(--dark-soft); border-top:2px solid var(--dark); }
+  tr.ref td.num { color:#fff; font-weight:700; }
+  tr.ref td:first-child { color:var(--slate-500); font-weight:500; }
   .note { font-size:13px; color:var(--slate-600); margin-top:14px; line-height:1.55; }
   .note b { color:var(--ink); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h2>4. План по каналу</h2>
+  <h2>План на ноябрь по каналам</h2>
   <div class="card">
     <div class="card-inner">
-      <table class="spec">
+      <table>
         <thead>
           <tr>
-            <th>КАНАЛ</th>
-            <th class="num">БЮДЖЕТ</th>
-            <th class="num">ЦЛ (БАЗА)</th>
+            <th>КАНАЛЫ ТРАФИКА</th>
+            <th class="num">БЮДЖЕТ НОЯБРЯ</th>
+            <th class="num">ФАКТ ОКТЯБРЯ</th>
+            <th class="num">СДВИГ БЮДЖЕТА</th>
+            <th class="num">ЦЕЛЕВЫЕ ЛИДЫ</th>
             <th class="num">CPL</th>
-            <th>КОММЕНТАРИЙ</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="channel">
             <td>
               <span class="chan">Яндекс Директ · «Автотаргетинг» № 715388324</span>
-              <span class="chan-sub">кабинет porg-ndso3qwm, comandapro.ru</span>
             </td>
             <td class="num">500 000 ₽</td>
+            <td class="num">270 432 ₽</td>
+            <td class="num">+229 568 ₽</td>
             <td class="num">28</td>
-            <td class="num">17 857 ₽</td>
-            <td>Весь бюджет — в один канал. Контроль ЦЛ по CRM («Качественный» / ❤ / 👍), не по Метрике.</td>
+            <td class="num">17 720 ₽</td>
           </tr>
           <tr class="total">
-            <td>Итого</td>
+            <td>Итого план ноября</td>
             <td class="num">500 000 ₽</td>
+            <td class="num">270 432 ₽</td>
+            <td class="num">+229 568 ₽</td>
             <td class="num">28</td>
-            <td class="num">17 857 ₽</td>
-            <td>SEO/email/посевы в дашборде не зафиксированы — при добавлении пересчитать.</td>
+            <td class="num">17 720 ₽</td>
+          </tr>
+          <tr class="ref">
+            <td>Справка: факт октября</td>
+            <td class="num">270 432 ₽</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">15</td>
+            <td class="num">18 029 ₽</td>
           </tr>
         </tbody>
       </table>
