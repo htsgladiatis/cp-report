@@ -85,6 +85,8 @@
   .nav-print { display:inline-flex; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-input); padding:8px 12px; cursor:pointer; font-family:var(--font-mono); font-size:13px; color:var(--ink); white-space:nowrap; transition:border-color 150ms var(--ease-std), box-shadow 150ms var(--ease-std); }
   .nav-print:hover { border-color:var(--brand); }
   .nav-print:focus-visible { outline:2px solid var(--brand); outline-offset:2px; }
+  .nav-plan { display:inline-flex; align-items:center; gap:6px; background:var(--brand-soft); border:1px solid var(--brand); border-radius:var(--r-input); padding:8px 12px; cursor:pointer; font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--brand-strong); white-space:nowrap; }
+  .nav-plan:hover { background:var(--brand); color:#fff; border-color:var(--brand-strong); }
   .period-popover { position:absolute; top:calc(100% + 8px); right:0; z-index:40; width:392px; max-width:calc(100vw - 48px);
                     background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
                     box-shadow:var(--shadow-2); padding:6px; }
@@ -366,6 +368,7 @@
           </div>
         </div>
       </div>
+        <button id="planBtn" class="nav-plan" type="button" title="Медиаплан ноябрь 2026">план ↗</button>
         <button id="printBtn" class="nav-print" type="button" title="Печать или сохранение в PDF">Сохранить в PDF</button>
       </div>
     </div>
@@ -1119,6 +1122,8 @@
   /* ---------- save as PDF ---------- */
   var printBtn = document.getElementById("printBtn");
   if(printBtn){ printBtn.addEventListener("click", function(){ window.print(); }); }
+  var planBtn = document.getElementById("planBtn");
+  if(planBtn){ planBtn.addEventListener("click", function(){ location.href = "media-plan-november-2026.html"; }); }
 
   /* ---------- period picker (weeks | months) ---------- */
   var trigger = document.getElementById("periodTrigger");
