@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ComandaPRO · план на ноябрь по каналам</title>
+<title>ComandaPRO · медиаплан ноябрь 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -21,8 +21,11 @@
   * { box-sizing:border-box; }
   body { margin:0; background:var(--canvas); color:var(--ink); font-family:var(--font-sans); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
   .wrap { max-width:1100px; margin:0 auto; padding:0 24px 48px; }
-  h2 { font-size:20px; font-weight:700; margin:0 0 16px; letter-spacing:-.01em; }
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; }
+  h1 { font-size:30px; font-weight:700; margin:0 0 6px; letter-spacing:-.015em; }
+  h2 { font-size:20px; font-weight:700; margin:32px 0 10px; letter-spacing:-.01em; }
+  .kicker { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate-500); font-weight:600; margin-bottom:6px; }
+  .lede { color:var(--slate-600); margin-top:8px; max-width:78ch; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; margin-top:16px; }
   .card-inner { padding:20px 24px; }
   table { width:100%; border-collapse:collapse; font-size:14px; }
   thead th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:#fff; background:var(--dark); padding:11px 16px; font-weight:600; border-bottom:1px solid var(--border); }
@@ -32,18 +35,96 @@
   tr.channel td { background:var(--orange-soft); color:var(--ink); font-weight:700; }
   tr.channel td.num { color:var(--ink); }
   tr.channel td .chan { color:var(--ink); font-weight:700; }
-  tr.channel td .chan-sub { display:block; font-size:13px; color:var(--slate-600); margin-top:2px; font-weight:500; }
   tr.total td { background:var(--surface-2); font-weight:700; color:var(--ink); border-top:1px solid var(--border); }
   tr.ref td { background:var(--dark); color:var(--dark-soft); border-top:2px solid var(--dark); }
   tr.ref td.num { color:#fff; font-weight:700; }
   tr.ref td:first-child { color:var(--slate-500); font-weight:500; }
   .note { font-size:13px; color:var(--slate-600); margin-top:14px; line-height:1.55; }
   .note b { color:var(--ink); }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0; }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); padding:18px; box-shadow:none; }
+  .kpi.accent { border-color:var(--brand); background:var(--brand); }
+  .kpi .lab { font-size:12px; color:var(--slate-600); min-height:34px; }
+  .kpi.accent .lab, .kpi.accent .sub { color:#F2F7FF; }
+  .kpi .val { font-family:var(--font-mono); font-size:26px; font-weight:600; letter-spacing:-.01em; margin-top:6px; font-variant-numeric:tabular-nums; }
+  .kpi.accent .val { color:#fff; }
+  .kpi .sub { font-size:12px; color:var(--slate-600); margin-top:6px; }
+  .pill { display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; }
+  .pill.up { background:var(--brand-soft); color:var(--brand-strong); }
+  .warnbox { border-left:3px solid var(--orange-dark); background:var(--orange-soft); border-radius:0 var(--r-card) var(--r-card) 0; padding:10px 14px; margin-top:12px; color:var(--ink-soft); font-size:14px; }
+  .warnbox b { color:var(--ink); }
+  footer { margin-top:44px; border-top:1px solid var(--border); padding-top:16px; font-size:12px; color:var(--slate-600); }
+  @media (max-width:900px){ .kpis{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .kpis{grid-template-columns:1fr;} h1{font-size:24px;} .wrap{padding:0 12px 44px;} }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h2>План на ноябрь по каналам</h2>
+  <div class="card">
+    <div class="card-inner">
+      <div class="kicker">Медиаплан · Яндекс Директ</div>
+      <h1>Медиаплан на ноябрь 2026</h1>
+      <p class="lede">Канал — Яндекс Директ. Бюджет ноября — 500 000 ₽ (+66,7% к обычному 300 000 ₽).<br/>Источник фактов — дашборд:<br/>октябрь 2026 и срез 02–06.11.2026.<br/>Лиды и ЦЛ учитываются по CRM Bitrix24.</p>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi accent"><div class="lab">Бюджет Директа · ноябрь</div><div class="val">500 000 ₽</div><div class="sub">обычный месяц 300 000 ₽ · октябрь факт 270 432 ₽ · прирост +200 000 ₽ (+66,7%)</div></div>
+    <div class="kpi"><div class="lab">Целевые лиды (ЦЛ) · план</div><div class="val">28</div><div class="sub">октябрь факт 15 ЦЛ · 500 000 ₽ / 17 720 ₽ · +86,7% к октябрю</div></div>
+    <div class="kpi"><div class="lab">CPA (все лиды)</div><div class="val">2 700 ₽</div><div class="sub">октябрь 2 458 ₽ · п6 Direct 3 166 ₽ · при бюджете 500 000 ₽ — ~185 лидов</div></div>
+    <div class="kpi"><div class="lab">CPL (ЦЛ)</div><div class="val">17 720 ₽</div><div class="sub">среднее: октябрь 18 029 ₽ и п6 Direct 17 412 ₽</div></div>
+  </div>
+
+  <h2>1. Факт-база (дашборд cp-report)</h2>
+  <div class="card">
+    <div class="card-inner">
+      <table>
+        <thead><tr><th>ПЕРИОД</th><th class="num">РАСХОД</th><th class="num">КЛИКИ</th><th class="num">ПОКАЗЫ</th><th class="num">CTR</th><th class="num">CPC</th><th class="num">ЛИДЫ</th><th class="num">ЦЛ</th><th class="num">CPA</th><th class="num">CPL</th></tr></thead>
+        <tbody>
+          <tr><td>Сентябрь 2026 (29–30.09)</td><td class="num">6 417 ₽</td><td class="num">27</td><td class="num">326</td><td class="num">8,28%</td><td class="num">238 ₽</td><td class="num">5</td><td class="num">3</td><td class="num">1 283 ₽</td><td class="num">2 139 ₽</td></tr>
+          <tr><td>Октябрь 2026 (01–31.10)</td><td class="num">270 432 ₽</td><td class="num">381</td><td class="num">6 778</td><td class="num">5,62%</td><td class="num">710 ₽</td><td class="num">110</td><td class="num">15</td><td class="num">2 458 ₽</td><td class="num">18 029 ₽</td></tr>
+          <tr><td>Ноябрь 02–06.11 (факт, 5 дней)</td><td class="num">69 648 ₽</td><td class="num">66</td><td class="num">1 219</td><td class="num">5,41%</td><td class="num">1 055 ₽</td><td class="num">23</td><td class="num">5</td><td class="num">3 028 ₽</td><td class="num">13 930 ₽</td></tr>
+          <tr><td>из них Direct-only (п6)</td><td class="num">69 648 ₽</td><td class="num">66</td><td class="num">1 219</td><td class="num">5,41%</td><td class="num">1 055 ₽</td><td class="num">22</td><td class="num">4</td><td class="num">3 166 ₽</td><td class="num">17 412 ₽</td></tr>
+          <tr class="total"><td>Итого 29.09–06.11</td><td class="num">346 497 ₽</td><td class="num">474</td><td class="num">8 323</td><td class="num">5,70%</td><td class="num">731 ₽</td><td class="num">138</td><td class="num">23</td><td class="num">2 511 ₽</td><td class="num">15 065 ₽</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Источник: дашборд cp-report. По октябрю отдельной Direct-only разбивки нет — базовая CPL = среднее октября и п6 Direct = 17 720 ₽.</p>
+    </div>
+  </div>
+
+  <h2>2. Бюджет и план</h2>
+  <div class="card">
+    <div class="card-inner">
+      <table>
+        <thead><tr><th>ПОКАЗАТЕЛЬ</th><th class="num">СУММА / ЗНАЧЕНИЕ</th><th>КОММЕНТАРИЙ</th></tr></thead>
+        <tbody>
+          <tr><td>Обычный бюджет месяца</td><td class="num">300 000 ₽</td><td>база сравнения</td></tr>
+          <tr class="total"><td>План бюджета на ноябрь</td><td class="num">500 000 ₽</td><td>+200 000 ₽ (+66,7%) к обычному · +229 568 ₽ (+84,9%) к факту октября</td></tr>
+          <tr><td>Базовая CPL (стоимость ЦЛ)</td><td class="num">17 720 ₽</td><td>среднее: октябрь 18 029 ₽ и п6 Direct-only 17 412 ₽</td></tr>
+          <tr class="total"><td>План ЦЛ при бюджете 500 000 ₽</td><td class="num">28 ЦЛ</td><td>500 000 / 17 720 = 28,22 → 28 ЦЛ (стоимость в плане 17 857 ₽/ЦЛ)</td></tr>
+          <tr><td>При обычном бюджете 300 000 ₽</td><td class="num">17 ЦЛ</td><td>300 000 / 17 720 = 16,93 → 17 ЦЛ</td></tr>
+        </tbody>
+      </table>
+      <div class="warnbox"><b>Контроль при бюджете 500 000 ₽.</b><br/>CPC (октябрь 710 ₽ → п6 1 055 ₽) — лимиты ставок и площадок. Конверсия лид→ЦЛ (октябрь 13,6%; п6 21,7%) — главный рычаг. Отключать связки без ЦЛ по CRM-квалификации.</div>
+    </div>
+  </div>
+
+  <h2>3. Сценарии при бюджете 500 000 ₽</h2>
+  <div class="card">
+    <div class="card-inner">
+      <table>
+        <thead><tr><th>СЦЕНАРИЙ</th><th>ЛОГИКА</th><th class="num">БЮДЖЕТ</th><th class="num">ЦЛ</th><th class="num">К ОКТЯБРЮ (15)</th><th class="num">CPL</th><th class="num">CPA</th></tr></thead>
+        <tbody>
+          <tr><td>Консервативный</td><td>CPC и конкуренция растут, конверсия лид→ЦЛ не улучшается</td><td class="num">500 000 ₽</td><td class="num">26</td><td class="num"><span class="pill up">+73,3%</span></td><td class="num">19 231 ₽</td><td class="num">~3 000 ₽</td></tr>
+          <tr class="base"><td><b>Базовый — план</b></td><td>Удержание среднего факта: октябрь и п6 Direct</td><td class="num">500 000 ₽</td><td class="num">28</td><td class="num"><span class="pill up">+86,7%</span></td><td class="num">17 857 ₽</td><td class="num">~2 700 ₽</td></tr>
+          <tr><td>Апсайд</td><td>Оптимизация «Автотаргетинга» −9% к базовой CPL</td><td class="num">500 000 ₽</td><td class="num">31</td><td class="num"><span class="pill up">+106,7%</span></td><td class="num">16 129 ₽</td><td class="num">~2 500 ₽</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Расчёт: консервативный 500 000 / 26 = 19 231 ₽; базовый 500 000 / 28 = 17 857 ₽; апсайд 500 000 / 31 = 16 129 ₽. Прогноз лидов при CPA ~2 700 ₽ — ~185 лидов (зависит от доли прозвона).</p>
+    </div>
+  </div>
+
+  <h2>4. План на ноябрь по каналам</h2>
   <div class="card">
     <div class="card-inner">
       <table>
@@ -59,9 +140,7 @@
         </thead>
         <tbody>
           <tr class="channel">
-            <td>
-              <span class="chan">Яндекс Директ · «Автотаргетинг» № 715388324</span>
-            </td>
+            <td><span class="chan">Яндекс Директ · «Автотаргетинг» № 715388324</span></td>
             <td class="num">500 000 ₽</td>
             <td class="num">270 432 ₽</td>
             <td class="num">+229 568 ₽</td>
@@ -89,6 +168,37 @@
       <div class="note"><b>Особенности данных.</b><br/>Нет истории ЦЛ 2024–2025. Нет Direct-only разбивки за весь октябрь. CPL считается как расход Директа / ЦЛ; часть лидов может быть не из Директа.</div>
     </div>
   </div>
+
+  <h2>5. Контрольные точки ноября</h2>
+  <div class="card">
+    <div class="card-inner">
+      <table>
+        <thead><tr><th>ДАТА</th><th class="num">ЦЛ НАКОПИТЕЛЬНО</th><th class="num">ДОЛЯ ПЛАНА</th><th>ЧТО ПРОВЕРИТЬ</th></tr></thead>
+        <tbody>
+          <tr><td>10.11</td><td class="num">9</td><td class="num">32%</td><td>Темп к 28 ЦЛ; стоимость ЦЛ по CRM; доля non-Direct/прозвона; CPC.</td></tr>
+          <tr><td>17.11</td><td class="num">16</td><td class="num">57%</td><td>ЦЛ &lt; 14 или CPL &gt; 19 500 ₽ — отключить неэффективные связки.</td></tr>
+          <tr><td>24.11</td><td class="num">23</td><td class="num">82%</td><td>Прогноз до 30.11; наращивать объём или удерживать CPL.</td></tr>
+          <tr><td>30.11</td><td class="num">28</td><td class="num">100%</td><td>Итог CRM, фактический расход, CPL, решение на декабрь.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>6. Источники и определения</h2>
+  <div class="card">
+    <div class="card-inner">
+      <table>
+        <tbody>
+          <tr><th scope="row" style="width:240px">ФАКТ</th><td>Октябрь 2026: 270 432 ₽, 110 лидов, 15 ЦЛ, CPA 2 458 ₽, CPL 18 029 ₽. 02–06.11: 69 648 ₽, 23 лида / 5 ЦЛ (Direct-only 22 / 4, CPL 17 412 ₽).</td></tr>
+          <tr><th scope="row">БЮДЖЕТ</th><td>Обычный 300 000 ₽. План ноября 500 000 ₽, Яндекс Директ «Автотаргетинг» № 715388324.</td></tr>
+          <tr><th scope="row">ИСТОЧНИК</th><td><a href="https://htsgladiatis.github.io/cp-report/" target="_blank">https://htsgladiatis.github.io/cp-report/</a></td></tr>
+          <tr><th scope="row">ОПРЕДЕЛЕНИЯ</th><td>Лиды — CRM Bitrix24 «Лид» (Директ + прозвон, дедуп по телефону). ЦЛ — статус «Качественный» и/или ❤/👍. CPL (стоимость ЦЛ) = расход Директа / ЦЛ. CPA (стоимость лида) = расход Директа / все лиды.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>ComandaPRO · Медиаплан ноябрь 2026 · 09.11.2026 · источник: дашборд cp-report. Бюджет ноября 500 000 ₽.</footer>
 </div>
 </body>
 </html>
