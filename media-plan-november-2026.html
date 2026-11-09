@@ -11,11 +11,11 @@
   :root {
     --ink:#101C28; --ink-soft:#1A2C3E; --slate-700:#334155; --slate-600:#475569; --slate-500:#64748B;
     --brand:#0060FC; --brand-strong:#004CCC; --brand-soft:#E6EFFF;
-    --canvas:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#DDE3EA; --border-strong:#CBD5E1;
-    --success:#1F7A4D; --success-soft:#E7F2EC; --warning:#B45309; --warning-soft:#FBF0E2; --danger:#B3261E; --danger-soft:#F9E9E7;
+    --canvas:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#DDE3EA;
+    --success:#1F7A4D; --success-soft:#E7F2EC; --warning:#B45309; --warning-soft:#FBF0E2;
     --font-sans:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --r-xs:4px; --r-sm:8px; --r-input:10px; --r-card:16px; --r-pill:999px;
+    --r-sm:8px; --r-card:16px; --r-pill:999px;
     --shadow-1:0 1px 2px rgba(16,28,40,.06); --shadow-2:0 6px 16px rgba(16,28,40,.08);
   }
   * { box-sizing:border-box; }
@@ -25,18 +25,18 @@
   h1 { font-size:30px; font-weight:700; }
   h2 { font-size:20px; font-weight:700; margin:38px 0 10px; }
   p { margin:0 0 10px; color:var(--slate-700); }
-  .nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
-  .nav-inner { max-width:1100px; margin:0 auto; padding:0 24px; height:56px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-  .nav-brand span { font-size:13px; color:var(--slate-600); }
-  .nav-actions { display:flex; gap:10px; }
-  .btn { display:inline-flex; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-input); padding:8px 12px; cursor:pointer; font-family:var(--font-mono); font-size:13px; color:var(--ink); }
-  .btn:hover { border-color:var(--brand); }
-  header.top { display:flex; justify-content:space-between; align-items:flex-start; gap:28px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); padding:24px; box-shadow:var(--shadow-1); margin-top:24px; }
   .kicker { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate-500); font-weight:600; margin-bottom:6px; }
   .lede { color:var(--slate-600); margin-top:8px; max-width:78ch; }
-  .head-right { text-align:right; font-size:13px; color:var(--slate-600); }
-  .head-right b { color:var(--ink); font-weight:600; }
-  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:18px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); box-shadow:var(--shadow-1); padding:20px; margin-top:16px; }
+  table { width:100%; border-collapse:collapse; background:var(--surface); font-size:14px; }
+  table.spec { border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; }
+  th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--slate-600); background:var(--surface-2); padding:9px 14px; font-weight:600; }
+  td { padding:9px 14px; border-top:1px solid var(--border); vertical-align:top; }
+  td.num, th.num { text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tr.total td { background:var(--surface-2); font-weight:700; }
+  .pill { display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--r-pill); }
+  .pill.up { background:var(--success-soft); color:var(--success); }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0; }
   .kpi { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); padding:18px; box-shadow:var(--shadow-1); }
   .kpi.accent { border-color:var(--brand); background:var(--brand); }
   .kpi .lab { font-size:12px; color:var(--slate-600); min-height:34px; }
@@ -44,37 +44,20 @@
   .kpi .val { font-family:var(--font-mono); font-size:26px; font-weight:600; letter-spacing:-.01em; margin-top:6px; font-variant-numeric:tabular-nums; }
   .kpi.accent .val { color:#fff; }
   .kpi .sub { font-size:12px; color:var(--slate-600); margin-top:6px; }
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); box-shadow:var(--shadow-1); padding:20px; margin-top:16px; }
   .note { font-size:13px; color:var(--slate-600); margin-top:8px; }
-  table { width:100%; border-collapse:collapse; background:var(--surface); font-size:14px; }
-  table.spec { border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; }
-  th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--slate-600); background:var(--surface-2); padding:9px 14px; font-weight:600; }
-  td { padding:9px 14px; border-top:1px solid var(--border); vertical-align:top; }
-  td.num, th.num { text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
-  tr.total td { background:var(--surface-2); font-weight:700; }
-  tr.base td { background:var(--brand-soft); }
-  .pill { display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--r-pill); }
-  .pill.up { background:var(--success-soft); color:var(--success); }
-  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
-  .callout { border-left:3px solid var(--brand); padding:10px 14px; background:var(--brand-soft); border-radius:0 var(--r-sm) var(--r-sm) 0; margin:12px 0; color:var(--slate-700); font-size:14px; }
-  .warnbox { border-left-color:var(--warning); background:var(--warning-soft); }
   footer { margin-top:44px; border-top:1px solid var(--border); padding-top:16px; font-size:12px; color:var(--slate-600); }
-  @media (max-width:900px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
-  @media (max-width:640px){ .kpis{grid-template-columns:1fr;} h1{font-size:24px;} .head-right{text-align:left;} .wrap{padding:0 12px 44px;} }
-  @media print { @page{size:A4;margin:12mm;} body{background:#fff;} .nav{display:none!important;} .kpi,.card,header.top{box-shadow:none; break-inside:avoid;} tr{break-inside:avoid;} }
+  @media (max-width:900px){ .kpis{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .kpis{grid-template-columns:1fr;} h1{font-size:24px;} .wrap{padding:0 12px 44px;} }
+  @media print { @page{size:A4;margin:12mm;} body{background:#fff;} .card{box-shadow:none; break-inside:avoid;} tr{break-inside:avoid;} }
 </style>
 </head>
 <body>
-<nav class="nav"><div class="nav-inner"><div class="nav-brand"><span>ComandaPRO · Медиаплан ноябрь 2026</span></div><div class="nav-actions"><a href="index.html" class="btn">отчёт →</a><button class="btn" type="button" onclick="window.print()">Сохранить в PDF</button></div></div></nav>
 <div class="wrap">
-  <header class="top">
-    <div>
-      <div class="kicker">Медиаплан · Яндекс Директ</div>
-      <h1>Медиаплан на ноябрь 2026</h1>
-      <p class="lede">Канал — Яндекс Директ. Бюджет ноября — 500 000 ₽ (+66,7% к обычному 300 000 ₽).<br>Источник фактов — дашборд:<br>октябрь 2026 и срез 02–06.11.2026.<br>Лиды и ЦЛ учитываются по CRM Bitrix24.</p>
-    </div>
-    <div class="head-right"><b>comandapro.ru</b><br/>Сформировано 09.11.2026</div>
-  </header>
+  <div class="card">
+    <div class="kicker">Медиаплан · Яндекс Директ</div>
+    <h1>Медиаплан на ноябрь 2026</h1>
+    <p class="lede">Канал — Яндекс Директ. Бюджет ноября — 500 000 ₽ (+66,7% к обычному 300 000 ₽).<br/>Источник фактов — дашборд:<br/>октябрь 2026 и срез 02–06.11.2026.<br/>Лиды и ЦЛ учитываются по CRM Bitrix24.</p>
+  </div>
 
   <div class="kpis">
     <div class="kpi accent"><div class="lab">Бюджет Директа · ноябрь</div><div class="val">500 000 ₽</div><div class="sub">обычный месяц 300 000 ₽ · октябрь факт 270 432 ₽ · прирост +200 000 ₽ (+66,7%)</div></div>
@@ -95,7 +78,7 @@
         <tr class="total"><td>Итого 29.09–06.11</td><td class="num">346 497 ₽</td><td class="num">474</td><td class="num">8 323</td><td class="num">5,70%</td><td class="num">731 ₽</td><td class="num">138</td><td class="num">23</td><td class="num">2 511 ₽</td><td class="num">15 065 ₽</td></tr>
       </tbody>
     </table>
-    <p class="note">Источник: <a href="https://htsgladiatis.github.io/cp-report/" target="_blank">дашборд cp-report</a>. По октябрю отдельной Direct-only разбивки нет — базовая CPL = среднее октября и п6 Direct = 17 720 ₽.</p>
+    <p class="note">Источник: дашборд cp-report. По октябрю отдельной Direct-only разбивки нет — базовая CPL = среднее октября и п6 Direct = 17 720 ₽.</p>
   </div>
 
   <h2>2. Бюджет и план</h2>
@@ -135,37 +118,10 @@
         <tr class="total"><td>Итого</td><td class="num">500 000 ₽</td><td class="num">28</td><td class="num">17 857 ₽</td><td>SEO/email/посевы в дашборде не зафиксированы — при добавлении пересчитать.</td></tr>
       </tbody>
     </table>
-    <div class="grid2">
-      <div class="callout"><b>Особенности данных.</b><br/>Нет истории ЦЛ 2024–2025. Нет Direct-only разбивки за весь октябрь. CPL считается как расход Директа / ЦЛ; часть лидов может быть не из Директа.</div>
-    </div>
+    <div class="callout"><b>Особенности данных.</b><br/>Нет истории ЦЛ 2024–2025. Нет Direct-only разбивки за весь октябрь. CPL считается как расход Директа / ЦЛ; часть лидов может быть не из Директа.</div>
   </div>
 
-  <h2>5. Контрольные точки ноября</h2>
-  <div class="card">
-    <table class="spec">
-      <thead><tr><th>Дата</th><th class="num">ЦЛ накопительно</th><th class="num">Доля плана</th><th>Что проверить</th></tr></thead>
-      <tbody>
-        <tr><td>10.11</td><td class="num">9</td><td class="num">32%</td><td>Темп к 28 ЦЛ; стоимость ЦЛ по CRM; доля non-Direct/прозвона; CPC.</td></tr>
-        <tr><td>17.11</td><td class="num">16</td><td class="num">57%</td><td>ЦЛ &lt; 14 или CPL &gt; 19 500 ₽ — отключить неэффективные связки.</td></tr>
-        <tr><td>24.11</td><td class="num">23</td><td class="num">82%</td><td>Прогноз до 30.11; наращивать объём или удерживать CPL.</td></tr>
-        <tr><td>30.11</td><td class="num">28</td><td class="num">100%</td><td>Итог CRM, фактический расход, CPL, решение на декабрь.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h2>6. Источники и определения</h2>
-  <div class="card">
-    <table class="spec">
-      <tbody>
-        <tr><th scope="row" style="width:240px">Факт</th><td>Октябрь 2026: 270 432 ₽, 110 лидов, 15 ЦЛ, CPA 2 458 ₽, CPL 18 029 ₽. 02–06.11: 69 648 ₽, 23 лида / 5 ЦЛ (Direct-only 22 / 4, CPL 17 412 ₽).</td></tr>
-        <tr><th scope="row">Бюджет</th><td>Обычный 300 000 ₽. План ноября 500 000 ₽, Яндекс Директ «Автотаргетинг» № 715388324.</td></tr>
-        <tr><th scope="row">Источник</th><td><a href="https://htsgladiatis.github.io/cp-report/" target="_blank">https://htsgladiatis.github.io/cp-report/</a></td></tr>
-        <tr><th scope="row">Определения</th><td>Лиды — CRM Bitrix24 «Лид» (Директ + прозвон, дедуп по телефону). ЦЛ — статус «Качественный» и/или ❤/👍. CPL (стоимость ЦЛ) = расход Директа / ЦЛ. CPA (стоимость лида) = расход Директа / все лиды.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <footer>ComandaPRO · Медиаплан ноябрь 2026 · 09.11.2026 · источник: дашборд cp-report. Бюджет ноября 500 000 ₽. Лимиты расхода и правила учёта прозвона/non-Direct зафиксированы.</footer>
+  <footer>ComandaPRO · Медиаплан ноябрь 2026 · 09.11.2026 · источник: дашборд cp-report. Бюджет ноября 500 000 ₽.</footer>
 </div>
 </body>
 </html>
