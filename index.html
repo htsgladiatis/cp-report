@@ -1123,6 +1123,14 @@
   var printBtn = document.getElementById("printBtn");
   if(printBtn){ printBtn.addEventListener("click", function(){ window.print(); }); }
   var planBtn = document.getElementById("planBtn");
+  var planBtn = document.createElement("button");
+  planBtn.id = "planBtn";
+  planBtn.className = "btn btn-secondary";
+  planBtn.textContent = "Медиаплан · ноябрь 2026";
+  planBtn.style.marginLeft = "8px";
+  planBtn.addEventListener("click", function(){ location.href = "media-plan-november-2026.html"; });
+  var parent = document.getElementById("header-actions .nav__inner");
+  if(parent) parent.appendChild(planBtn);
   if(planBtn){ planBtn.addEventListener("click", function(){ location.href = "media-plan-november-2026.html"; }); }
 
   /* ---------- period picker (weeks | months) ---------- */
