@@ -3,125 +3,77 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ComandaPRO · медиаплан ноябрь 2026</title>
+<title>ComandaPRO · план по каналу</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     --ink:#101C28; --ink-soft:#1A2C3E; --slate-700:#334155; --slate-600:#475569; --slate-500:#64748B;
     --brand:#0060FC; --brand-strong:#004CCC; --brand-soft:#E6EFFF;
-    --canvas:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#DDE3EA;
-    --success:#1F7A4D; --success-soft:#E7F2EC; --warning:#B45309; --warning-soft:#FBF0E2;
+    --canvas:#F2F4F8; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#DDE3EA;
     --font-sans:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --r-sm:8px; --r-card:16px; --r-pill:999px;
-    --shadow-1:0 1px 2px rgba(16,28,40,.06); --shadow-2:0 6px 16px rgba(16,28,40,.08);
+    --r-card:12px;
   }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--canvas); color:var(--ink); font-family:var(--font-sans); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
-  .wrap { max-width:1100px; margin:0 auto; padding:0 24px 64px; }
-  h1,h2 { line-height:1.15; margin:0; letter-spacing:-.015em; }
-  h1 { font-size:30px; font-weight:700; }
-  h2 { font-size:20px; font-weight:700; margin:38px 0 10px; }
-  p { margin:0 0 10px; color:var(--slate-700); }
-  .kicker { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate-500); font-weight:600; margin-bottom:6px; }
-  .lede { color:var(--slate-600); margin-top:8px; max-width:78ch; }
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); box-shadow:var(--shadow-1); padding:20px; margin-top:16px; }
-  table { width:100%; border-collapse:collapse; background:var(--surface); font-size:14px; }
+  .wrap { max-width:1100px; margin:0 auto; padding:0 24px 48px; }
+  h2 { font-size:20px; font-weight:700; margin:0 0 16px; letter-spacing:-.01em; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); padding:0; }
+  .card-inner { padding:20px 24px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
   table.spec { border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; }
-  th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--slate-600); background:var(--surface-2); padding:9px 14px; font-weight:600; }
-  td { padding:9px 14px; border-top:1px solid var(--border); vertical-align:top; }
+  thead th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--slate-600); background:var(--surface-2); padding:11px 16px; font-weight:600; border-bottom:1px solid var(--border); }
+  thead th.num { text-align:right; }
+  td { padding:11px 16px; border-top:1px solid var(--border); vertical-align:top; color:var(--ink-soft); }
   td.num, th.num { text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
-  tr.total td { background:var(--surface-2); font-weight:700; }
-  .pill { display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--r-pill); }
-  .pill.up { background:var(--success-soft); color:var(--success); }
-  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0; }
-  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card); padding:18px; box-shadow:var(--shadow-1); }
-  .kpi.accent { border-color:var(--brand); background:var(--brand); }
-  .kpi .lab { font-size:12px; color:var(--slate-600); min-height:34px; }
-  .kpi.accent .lab, .kpi.accent .sub { color:#F2F7FF; }
-  .kpi .val { font-family:var(--font-mono); font-size:26px; font-weight:600; letter-spacing:-.01em; margin-top:6px; font-variant-numeric:tabular-nums; }
-  .kpi.accent .val { color:#fff; }
-  .kpi .sub { font-size:12px; color:var(--slate-600); margin-top:6px; }
-  .note { font-size:13px; color:var(--slate-600); margin-top:8px; }
-  footer { margin-top:44px; border-top:1px solid var(--border); padding-top:16px; font-size:12px; color:var(--slate-600); }
-  @media (max-width:900px){ .kpis{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:640px){ .kpis{grid-template-columns:1fr;} h1{font-size:24px;} .wrap{padding:0 12px 44px;} }
-  @media print { @page{size:A4;margin:12mm;} body{background:#fff;} .card{box-shadow:none; break-inside:avoid;} tr{break-inside:avoid;} }
+  tr.total td { background:var(--surface-2); font-weight:700; color:var(--ink); }
+  tr.total { border-top:1px solid var(--border); }
+  .chan { font-weight:700; color:var(--ink); }
+  .chan-sub { display:block; font-size:13px; color:var(--slate-600); margin-top:2px; }
+  .note { font-size:13px; color:var(--slate-600); margin-top:14px; line-height:1.55; }
+  .note b { color:var(--ink); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="card">
-    <div class="kicker">Медиаплан · Яндекс Директ</div>
-    <h1>Медиаплан на ноябрь 2026</h1>
-    <p class="lede">Канал — Яндекс Директ. Бюджет ноября — 500 000 ₽ (+66,7% к обычному 300 000 ₽).<br/>Источник фактов — дашборд:<br/>октябрь 2026 и срез 02–06.11.2026.<br/>Лиды и ЦЛ учитываются по CRM Bitrix24.</p>
-  </div>
-
-  <div class="kpis">
-    <div class="kpi accent"><div class="lab">Бюджет Директа · ноябрь</div><div class="val">500 000 ₽</div><div class="sub">обычный месяц 300 000 ₽ · октябрь факт 270 432 ₽ · прирост +200 000 ₽ (+66,7%)</div></div>
-    <div class="kpi"><div class="lab">Целевые лиды (ЦЛ) · план</div><div class="val">28</div><div class="sub">октябрь факт 15 ЦЛ · 500 000 ₽ / 17 720 ₽ · +86,7% к октябрю</div></div>
-    <div class="kpi"><div class="lab">CPA (все лиды)</div><div class="val">2 700 ₽</div><div class="sub">октябрь 2 458 ₽ · п6 Direct 3 166 ₽ · при бюджете 500 000 ₽ — ~185 лидов</div></div>
-    <div class="kpi"><div class="lab">CPL (ЦЛ)</div><div class="val">17 720 ₽</div><div class="sub">среднее: октябрь 18 029 ₽ и п6 Direct 17 412 ₽</div></div>
-  </div>
-
-  <h2>1. Факт-база (дашборд cp-report)</h2>
-  <div class="card">
-    <table class="spec">
-      <thead><tr><th>Период</th><th class="num">Расход</th><th class="num">Клики</th><th class="num">Показы</th><th class="num">CTR</th><th class="num">CPC</th><th class="num">Лиды</th><th class="num">ЦЛ</th><th class="num">CPA</th><th class="num">CPL</th></tr></thead>
-      <tbody>
-        <tr><td>Сентябрь 2026 (29–30.09)</td><td class="num">6 417 ₽</td><td class="num">27</td><td class="num">326</td><td class="num">8,28%</td><td class="num">238 ₽</td><td class="num">5</td><td class="num">3</td><td class="num">1 283 ₽</td><td class="num">2 139 ₽</td></tr>
-        <tr><td>Октябрь 2026 (01–31.10)</td><td class="num">270 432 ₽</td><td class="num">381</td><td class="num">6 778</td><td class="num">5,62%</td><td class="num">710 ₽</td><td class="num">110</td><td class="num">15</td><td class="num">2 458 ₽</td><td class="num">18 029 ₽</td></tr>
-        <tr><td>Ноябрь 02–06.11 (факт, 5 дней)</td><td class="num">69 648 ₽</td><td class="num">66</td><td class="num">1 219</td><td class="num">5,41%</td><td class="num">1 055 ₽</td><td class="num">23</td><td class="num">5</td><td class="num">3 028 ₽</td><td class="num">13 930 ₽</td></tr>
-        <tr><td>из них Direct-only (п6)</td><td class="num">69 648 ₽</td><td class="num">66</td><td class="num">1 219</td><td class="num">5,41%</td><td class="num">1 055 ₽</td><td class="num">22</td><td class="num">4</td><td class="num">3 166 ₽</td><td class="num">17 412 ₽</td></tr>
-        <tr class="total"><td>Итого 29.09–06.11</td><td class="num">346 497 ₽</td><td class="num">474</td><td class="num">8 323</td><td class="num">5,70%</td><td class="num">731 ₽</td><td class="num">138</td><td class="num">23</td><td class="num">2 511 ₽</td><td class="num">15 065 ₽</td></tr>
-      </tbody>
-    </table>
-    <p class="note">Источник: дашборд cp-report. По октябрю отдельной Direct-only разбивки нет — базовая CPL = среднее октября и п6 Direct = 17 720 ₽.</p>
-  </div>
-
-  <h2>2. Бюджет и план</h2>
-  <div class="card">
-    <table class="spec">
-      <thead><tr><th>Показатель</th><th class="num">Сумма / значение</th><th>Комментарий</th></tr></thead>
-      <tbody>
-        <tr><td>Обычный бюджет месяца</td><td class="num">300 000 ₽</td><td>база сравнения</td></tr>
-        <tr class="total"><td>План бюджета на ноябрь</td><td class="num">500 000 ₽</td><td>+200 000 ₽ (+66,7%) к обычному · +229 568 ₽ (+84,9%) к факту октября</td></tr>
-        <tr><td>Базовая CPL (стоимость ЦЛ)</td><td class="num">17 720 ₽</td><td>среднее: октябрь 18 029 ₽ и п6 Direct-only 17 412 ₽</td></tr>
-        <tr class="total"><td>План ЦЛ при бюджете 500 000 ₽</td><td class="num">28 ЦЛ</td><td>500 000 / 17 720 = 28,22 → 28 ЦЛ (стоимость в плане 17 857 ₽/ЦЛ)</td></tr>
-        <tr><td>При обычном бюджете 300 000 ₽</td><td class="num">17 ЦЛ</td><td>300 000 / 17 720 = 16,93 → 17 ЦЛ</td></tr>
-      </tbody>
-    </table>
-    <div class="callout"><b>Контроль при бюджете 500 000 ₽.</b><br/>CPC (октябрь 710 ₽ → п6 1 055 ₽) — лимиты ставок и площадок. Конверсия лид→ЦЛ (октябрь 13,6%; п6 21,7%) — главный рычаг. Отключать связки без ЦЛ по CRM-квалификации.</div>
-  </div>
-
-  <h2>3. Сценарии при бюджете 500 000 ₽</h2>
-  <div class="card">
-    <table class="spec">
-      <thead><tr><th>Сценарий</th><th>Логика</th><th class="num">Бюджет</th><th class="num">ЦЛ</th><th class="num">К октябрю (15)</th><th class="num">CPL</th><th class="num">CPA</th></tr></thead>
-      <tbody>
-        <tr><td>Консервативный</td><td>CPC и конкуренция растут, конверсия лид→ЦЛ не улучшается</td><td class="num">500 000 ₽</td><td class="num">26</td><td class="num"><span class="pill up">+73,3%</span></td><td class="num">19 231 ₽</td><td class="num">~3 000 ₽</td></tr>
-        <tr class="base"><td><b>Базовый — план</b></td><td>Удержание среднего факта: октябрь и п6 Direct</td><td class="num">500 000 ₽</td><td class="num">28</td><td class="num"><span class="pill up">+86,7%</span></td><td class="num">17 857 ₽</td><td class="num">~2 700 ₽</td></tr>
-        <tr><td>Апсайд</td><td>Оптимизация «Автотаргетинга» −9% к базовой CPL</td><td class="num">500 000 ₽</td><td class="num">31</td><td class="num"><span class="pill up">+106,7%</span></td><td class="num">16 129 ₽</td><td class="num">~2 500 ₽</td></tr>
-      </tbody>
-    </table>
-    <p class="note">Расчёт: консервативный 500 000 / 26 = 19 231 ₽; базовый 500 000 / 28 = 17 857 ₽; апсайд 500 000 / 31 = 16 129 ₽. Прогноз лидов при CPA ~2 700 ₽ — ~185 лидов (зависит от доли прозвона).</p>
-  </div>
-
   <h2>4. План по каналу</h2>
   <div class="card">
-    <table class="spec">
-      <thead><tr><th>Канал</th><th class="num">Бюджет</th><th class="num">ЦЛ (база)</th><th class="num">CPL</th><th>Комментарий</th></tr></thead>
-      <tbody>
-        <tr><td><b>Яндекс Директ · «Автотаргетинг» № 715388324</b><br/><span style="color:var(--slate-600);font-size:13px">кабинет porg-ndso3qwm, comandapro.ru</span></td><td class="num">500 000 ₽</td><td class="num">28</td><td class="num">17 857 ₽</td><td>Весь бюджет — в один канал. Контроль ЦЛ по CRM («Качественный» / ❤ / 👍), не по Метрике.</td></tr>
-        <tr class="total"><td>Итого</td><td class="num">500 000 ₽</td><td class="num">28</td><td class="num">17 857 ₽</td><td>SEO/email/посевы в дашборде не зафиксированы — при добавлении пересчитать.</td></tr>
-      </tbody>
-    </table>
-    <div class="callout"><b>Особенности данных.</b><br/>Нет истории ЦЛ 2024–2025. Нет Direct-only разбивки за весь октябрь. CPL считается как расход Директа / ЦЛ; часть лидов может быть не из Директа.</div>
+    <div class="card-inner">
+      <table class="spec">
+        <thead>
+          <tr>
+            <th>КАНАЛ</th>
+            <th class="num">БЮДЖЕТ</th>
+            <th class="num">ЦЛ (БАЗА)</th>
+            <th class="num">CPL</th>
+            <th>КОММЕНТАРИЙ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="chan">Яндекс Директ · «Автотаргетинг» № 715388324</span>
+              <span class="chan-sub">кабинет porg-ndso3qwm, comandapro.ru</span>
+            </td>
+            <td class="num">500 000 ₽</td>
+            <td class="num">28</td>
+            <td class="num">17 857 ₽</td>
+            <td>Весь бюджет — в один канал. Контроль ЦЛ по CRM («Качественный» / ❤ / 👍), не по Метрике.</td>
+          </tr>
+          <tr class="total">
+            <td>Итого</td>
+            <td class="num">500 000 ₽</td>
+            <td class="num">28</td>
+            <td class="num">17 857 ₽</td>
+            <td>SEO/email/посевы в дашборде не зафиксированы — при добавлении пересчитать.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note"><b>Особенности данных.</b><br/>Нет истории ЦЛ 2024–2025. Нет Direct-only разбивки за весь октябрь. CPL считается как расход Директа / ЦЛ; часть лидов может быть не из Директа.</div>
+    </div>
   </div>
-
-  <footer>ComandaPRO · Медиаплан ноябрь 2026 · 09.11.2026 · источник: дашборд cp-report. Бюджет ноября 500 000 ₽.</footer>
 </div>
 </body>
 </html>
