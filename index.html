@@ -921,7 +921,7 @@
   }
 
   /* ---------- period control ---------- */
-  var current = "all";
+  var current = "p7";
   var ORDER = ["p1","p2","p3","p4","p5","p6","p7","all"];
 
   var WEEKS = [
@@ -1110,6 +1110,9 @@
   function setPeriod(p){
     current = p;
     updateKpi(); updateSummary(); updateStruct(); updateFunnel(); updateFocus(); updateChip();
+    var it = itemById(p);
+    window.__clCtx = { id:p, from:(it && it.from) || null, to:(it && it.to) || null };
+    if(window.updateCL) window.updateCL(window.__clCtx);
     document.title = "ComandaPRO · отчёт по маркетингу · " + P[p].title;
     var live = document.getElementById("livePeriod");
     if(live) live.textContent = "Период: " + P[p].title;
@@ -1171,7 +1174,7 @@
   var ptMode = document.getElementById("ptMode");
   var ptIx = document.getElementById("ptIx");
   var ptLabel = document.getElementById("ptLabel");
-  var pickState = { mode:"week", currentId:"all", query:"" };
+  var pickState = { mode:"week", currentId:"p7", query:"" };
 
   function pickItems(){
     return pickState.mode === "week" ? WEEKS : MONTHS;
@@ -1290,7 +1293,7 @@
   }
 
   /* ---------- init ---------- */
-  setPeriod("all");
+  setPeriod("p7");
   updateChip();
 })();
 </script>
@@ -1333,6 +1336,13 @@
     #s5 .ch-widget { background:var(--brand-soft); color:var(--brand-strong); box-shadow:inset 0 0 0 1px rgba(0,76,204,.28); }
     #s5 .ch-out { background:var(--surface-2); color:var(--ink-soft); box-shadow:inset 0 0 0 1px var(--border); }
     #s5 .cl-note { margin-top:12px; font-size:12.5px; color:var(--slate-500); }
+    #s5 .cl-side { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    #s5 .cl-filter { display:flex; gap:2px; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-pill); padding:3px; }
+    #s5 .cl-filter button { border:0; background:transparent; font:inherit; font-size:12.5px; line-height:1; padding:7px 13px; border-radius:var(--r-pill); color:var(--slate-600); cursor:pointer; transition:background 150ms var(--ease-std), color 150ms var(--ease-std); }
+    #s5 .cl-filter button:hover { color:var(--ink); }
+    #s5 .cl-filter button.is-active { background:var(--brand); color:#fff; }
+    #s5 .cl-empty td { text-align:center; color:var(--slate-500); padding:22px 10px; }
+
     @media (max-width:640px) {
       #s5 .cl-table { min-width:600px; font-size:12.5px; }
       #s5 .cl-table th, #s5 .cl-table td { padding:8px 10px; }
@@ -1352,9 +1362,15 @@
     <div class="card">
       <div class="cl-head">
         <div class="cl-big"><b>25</b><span>целевых лида · 29.09–15.11.2026</span></div>
-        <div class="cl-chips">
-          <div class="cl-chip"><b>23</b><span>Директ</span></div>
-          <div class="cl-chip out"><b>2</b><span>не-Директ · прозвон</span></div>
+        <div class="cl-side">
+          <div class="cl-filter" role="group" aria-label="Фильтр целевых лидов">
+            <button type="button" data-cl-filter="period" class="is-active" aria-pressed="true">Период</button>
+            <button type="button" data-cl-filter="all" aria-pressed="false">Все ЦЛ</button>
+          </div>
+          <div class="cl-chips">
+            <div class="cl-chip"><b>23</b><span>Директ</span></div>
+            <div class="cl-chip out"><b>2</b><span>не-Директ · прозвон</span></div>
+          </div>
         </div>
       </div>
       <div class="cl-src">Источник: CRM Bitrix24 + экспорт из Telegram. Клик по телефону или ссылке открывает карточку лида в Bitrix24.</div>
@@ -1364,36 +1380,94 @@
           <tr><th>№</th><th>Телефон</th><th>Название</th><th>Дата</th><th>Канал</th><th>Bitrix24</th></tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137965/" target="_blank">+7 967 082-70-87</a></td><td class="cl-name">Фарма Химки</td><td class="cl-date">29.09–04.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137965/" target="_blank">137965</a></td></tr>
-          <tr><td>2</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137955/" target="_blank">+7 926 666-71-62</a></td><td class="cl-name">—</td><td class="cl-date">30.09</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137955/" target="_blank">137955</a></td></tr>
-          <tr><td>3</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137967/" target="_blank">+7 903 585-58-65</a></td><td class="cl-name">Мясной дом Бородина (ООО Митхаус)</td><td class="cl-date">30.09</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137967/" target="_blank">137967</a></td></tr>
-          <tr><td>4</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137977/" target="_blank">+7 925 282-20-73</a></td><td class="cl-name">—</td><td class="cl-date">01.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137977/" target="_blank">137977</a></td></tr>
-          <tr><td>5</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138005/" target="_blank">+7 930 974-15-18</a></td><td class="cl-name">Завод Зингер</td><td class="cl-date">05.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138005/" target="_blank">138005</a></td></tr>
-          <tr><td>6</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138407/" target="_blank">+7 925 032-53-81</a></td><td class="cl-name">ИП Сергеева</td><td class="cl-date">05.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138407/" target="_blank">138407</a></td></tr>
-          <tr><td>7</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138505/" target="_blank">+7 929 985-98-45</a></td><td class="cl-name">Вкусвилл</td><td class="cl-date">06.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138505/" target="_blank">138505</a></td></tr>
-          <tr><td>8</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138551/" target="_blank">+7 906 765-47-47</a></td><td class="cl-name">Склад Нарофоминск</td><td class="cl-date">06.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138551/" target="_blank">138551</a></td></tr>
-          <tr><td>9</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138573/" target="_blank">+7 915 480-06-30</a></td><td class="cl-name">Истра Смеси</td><td class="cl-date">07.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138573/" target="_blank">138573</a></td></tr>
-          <tr><td>10</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138583/" target="_blank">+7 986 475-15-84</a></td><td class="cl-name">—</td><td class="cl-date">07.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138583/" target="_blank">138583</a></td></tr>
-          <tr><td>11</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138893/" target="_blank">+7 995 667-78-97</a></td><td class="cl-name">—</td><td class="cl-date">15.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138893/" target="_blank">138893</a></td></tr>
-          <tr><td>12</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138903/" target="_blank">+7 977 473-95-83</a></td><td class="cl-name">—</td><td class="cl-date">16.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138903/" target="_blank">138903</a></td></tr>
-          <tr><td>13</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139087/" target="_blank">+7 915 136-92-74</a></td><td class="cl-name">Пелигрин</td><td class="cl-date">20.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139087/" target="_blank">139087</a></td></tr>
-          <tr><td>14</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139013/" target="_blank">+7 918 481-80-12</a></td><td class="cl-name">—</td><td class="cl-date">21.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139013/" target="_blank">139013</a></td></tr>
-          <tr><td>15</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139201/" target="_blank">+7 863 439-01-86</a></td><td class="cl-name">—</td><td class="cl-date">27.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139201/" target="_blank">139201</a></td></tr>
-          <tr><td>16</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139247/" target="_blank">+7 927 068-66-61</a></td><td class="cl-name">ИП ВАСЕВ А.С</td><td class="cl-date">28.10</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139247/" target="_blank">139247</a></td></tr>
-          <tr><td>17</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139287/" target="_blank">+7 978 841-42-78</a></td><td class="cl-name">Золотая ягода</td><td class="cl-date">26–31.10</td><td><span class="ch ch-out">не-Директ · прозвон</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139287/" target="_blank">139287</a></td></tr>
-          <tr><td>18</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139161/" target="_blank">+7 903 165-55-22</a></td><td class="cl-name">—</td><td class="cl-date">26.10</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139161/" target="_blank">139161</a></td></tr>
-          <tr><td>19</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139345/" target="_blank">+7 965 312-42-47</a></td><td class="cl-name">—</td><td class="cl-date">02.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139345/" target="_blank">139345</a></td></tr>
-          <tr><td>20</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139719/" target="_blank">+7 904 029-76-61</a></td><td class="cl-name">—</td><td class="cl-date">03.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139719/" target="_blank">139719</a></td></tr>
-          <tr><td>21</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139993/" target="_blank">+7 749 578-16-298</a></td><td class="cl-name">Планета Мириталь</td><td class="cl-date">05.11</td><td><span class="ch ch-out">не-Директ · прозвон</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139993/" target="_blank">139993</a></td></tr>
-          <tr><td>22</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139995/" target="_blank">+7 916 621-85-99</a></td><td class="cl-name">—</td><td class="cl-date">05.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139995/" target="_blank">139995</a></td></tr>
-          <tr><td>23</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140003/" target="_blank">+7 937 082-81-03</a></td><td class="cl-name">—</td><td class="cl-date">06.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140003/" target="_blank">140003</a></td></tr>
-          <tr><td>24</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140247/" target="_blank">+7 911 035-65-71</a></td><td class="cl-name">Андрей Макаров</td><td class="cl-date">12.11</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140247/" target="_blank">140247</a></td></tr>
-          <tr><td>25</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140347/" target="_blank">+7 929 566-60-08</a></td><td class="cl-name">Лопаев Тимур Сергеевич</td><td class="cl-date">13.11</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140347/" target="_blank">140347</a></td></tr>
+          <tr data-cl-from="29.09.2026" data-cl-to="30.09.2026" data-cl-dir="1"><td>1</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137965/" target="_blank">+7 967 082-70-87</a></td><td class="cl-name">Фарма Химки</td><td class="cl-date">29.09–04.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137965/" target="_blank">137965</a></td></tr>
+          <tr data-cl-from="30.09.2026" data-cl-to="30.09.2026" data-cl-dir="1"><td>2</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137955/" target="_blank">+7 926 666-71-62</a></td><td class="cl-name">—</td><td class="cl-date">30.09</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137955/" target="_blank">137955</a></td></tr>
+          <tr data-cl-from="30.09.2026" data-cl-to="30.09.2026" data-cl-dir="1"><td>3</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137967/" target="_blank">+7 903 585-58-65</a></td><td class="cl-name">Мясной дом Бородина (ООО Митхаус)</td><td class="cl-date">30.09</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137967/" target="_blank">137967</a></td></tr>
+          <tr data-cl-from="01.10.2026" data-cl-to="01.10.2026" data-cl-dir="1"><td>4</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137977/" target="_blank">+7 925 282-20-73</a></td><td class="cl-name">—</td><td class="cl-date">01.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137977/" target="_blank">137977</a></td></tr>
+          <tr data-cl-from="05.10.2026" data-cl-to="05.10.2026" data-cl-dir="1"><td>5</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138005/" target="_blank">+7 930 974-15-18</a></td><td class="cl-name">Завод Зингер</td><td class="cl-date">05.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138005/" target="_blank">138005</a></td></tr>
+          <tr data-cl-from="05.10.2026" data-cl-to="05.10.2026" data-cl-dir="1"><td>6</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138407/" target="_blank">+7 925 032-53-81</a></td><td class="cl-name">ИП Сергеева</td><td class="cl-date">05.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138407/" target="_blank">138407</a></td></tr>
+          <tr data-cl-from="06.10.2026" data-cl-to="06.10.2026" data-cl-dir="1"><td>7</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138505/" target="_blank">+7 929 985-98-45</a></td><td class="cl-name">Вкусвилл</td><td class="cl-date">06.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138505/" target="_blank">138505</a></td></tr>
+          <tr data-cl-from="06.10.2026" data-cl-to="06.10.2026" data-cl-dir="1"><td>8</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138551/" target="_blank">+7 906 765-47-47</a></td><td class="cl-name">Склад Нарофоминск</td><td class="cl-date">06.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138551/" target="_blank">138551</a></td></tr>
+          <tr data-cl-from="07.10.2026" data-cl-to="07.10.2026" data-cl-dir="1"><td>9</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138573/" target="_blank">+7 915 480-06-30</a></td><td class="cl-name">Истра Смеси</td><td class="cl-date">07.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138573/" target="_blank">138573</a></td></tr>
+          <tr data-cl-from="07.10.2026" data-cl-to="07.10.2026" data-cl-dir="1"><td>10</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138583/" target="_blank">+7 986 475-15-84</a></td><td class="cl-name">—</td><td class="cl-date">07.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138583/" target="_blank">138583</a></td></tr>
+          <tr data-cl-from="15.10.2026" data-cl-to="15.10.2026" data-cl-dir="1"><td>11</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138893/" target="_blank">+7 995 667-78-97</a></td><td class="cl-name">—</td><td class="cl-date">15.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138893/" target="_blank">138893</a></td></tr>
+          <tr data-cl-from="16.10.2026" data-cl-to="16.10.2026" data-cl-dir="1"><td>12</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138903/" target="_blank">+7 977 473-95-83</a></td><td class="cl-name">—</td><td class="cl-date">16.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/138903/" target="_blank">138903</a></td></tr>
+          <tr data-cl-from="20.10.2026" data-cl-to="20.10.2026" data-cl-dir="1"><td>13</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139087/" target="_blank">+7 915 136-92-74</a></td><td class="cl-name">Пелигрин</td><td class="cl-date">20.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139087/" target="_blank">139087</a></td></tr>
+          <tr data-cl-from="21.10.2026" data-cl-to="21.10.2026" data-cl-dir="1"><td>14</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139013/" target="_blank">+7 918 481-80-12</a></td><td class="cl-name">—</td><td class="cl-date">21.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139013/" target="_blank">139013</a></td></tr>
+          <tr data-cl-from="27.10.2026" data-cl-to="27.10.2026" data-cl-dir="1"><td>15</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139201/" target="_blank">+7 863 439-01-86</a></td><td class="cl-name">—</td><td class="cl-date">27.10</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139201/" target="_blank">139201</a></td></tr>
+          <tr data-cl-from="28.10.2026" data-cl-to="28.10.2026" data-cl-dir="1"><td>16</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139247/" target="_blank">+7 927 068-66-61</a></td><td class="cl-name">ИП ВАСЕВ А.С</td><td class="cl-date">28.10</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139247/" target="_blank">139247</a></td></tr>
+          <tr data-cl-from="26.10.2026" data-cl-to="31.10.2026" data-cl-dir="0"><td>17</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139287/" target="_blank">+7 978 841-42-78</a></td><td class="cl-name">Золотая ягода</td><td class="cl-date">26–31.10</td><td><span class="ch ch-out">не-Директ · прозвон</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139287/" target="_blank">139287</a></td></tr>
+          <tr data-cl-from="26.10.2026" data-cl-to="26.10.2026" data-cl-dir="1"><td>18</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139161/" target="_blank">+7 903 165-55-22</a></td><td class="cl-name">—</td><td class="cl-date">26.10</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139161/" target="_blank">139161</a></td></tr>
+          <tr data-cl-from="02.11.2026" data-cl-to="02.11.2026" data-cl-dir="1"><td>19</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139345/" target="_blank">+7 965 312-42-47</a></td><td class="cl-name">—</td><td class="cl-date">02.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139345/" target="_blank">139345</a></td></tr>
+          <tr data-cl-from="03.11.2026" data-cl-to="03.11.2026" data-cl-dir="1"><td>20</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139719/" target="_blank">+7 904 029-76-61</a></td><td class="cl-name">—</td><td class="cl-date">03.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139719/" target="_blank">139719</a></td></tr>
+          <tr data-cl-from="05.11.2026" data-cl-to="05.11.2026" data-cl-dir="0"><td>21</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139993/" target="_blank">+7 749 578-16-298</a></td><td class="cl-name">Планета Мириталь</td><td class="cl-date">05.11</td><td><span class="ch ch-out">не-Директ · прозвон</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139993/" target="_blank">139993</a></td></tr>
+          <tr data-cl-from="05.11.2026" data-cl-to="05.11.2026" data-cl-dir="1"><td>22</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139995/" target="_blank">+7 916 621-85-99</a></td><td class="cl-name">—</td><td class="cl-date">05.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139995/" target="_blank">139995</a></td></tr>
+          <tr data-cl-from="06.11.2026" data-cl-to="06.11.2026" data-cl-dir="1"><td>23</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140003/" target="_blank">+7 937 082-81-03</a></td><td class="cl-name">—</td><td class="cl-date">06.11</td><td><span class="ch ch-dir">Директ</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140003/" target="_blank">140003</a></td></tr>
+          <tr data-cl-from="12.11.2026" data-cl-to="12.11.2026" data-cl-dir="1"><td>24</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140247/" target="_blank">+7 911 035-65-71</a></td><td class="cl-name">Андрей Макаров</td><td class="cl-date">12.11</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140247/" target="_blank">140247</a></td></tr>
+          <tr data-cl-from="13.11.2026" data-cl-to="13.11.2026" data-cl-dir="1"><td>25</td><td class="cl-tel"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140347/" target="_blank">+7 929 566-60-08</a></td><td class="cl-name">Лопаев Тимур Сергеевич</td><td class="cl-date">13.11</td><td><span class="ch ch-widget">Директ · виджет</span></td><td class="cl-crm"><a href="https://comandapro.bitrix24.ru/crm/lead/details/140347/" target="_blank">140347</a></td></tr>
+          <tr class="cl-empty" hidden><td colspan="6">Нет целевых лидов за выбранный период</td></tr>
         </tbody>
       </table>
       </div>
-      <p class="cl-note">Все 25 номеров открывают карточку лида в CRM по ID.</p>
+      <p class="cl-note">Клик по номеру или ссылке открывает карточку лида в CRM по ID. Счётчик и чипы пересчитываются под выбранный период.</p>
     </div>
+  <script>
+(function(){
+  "use strict";
+  var section = document.getElementById("s5");
+  if(!section) return;
+  var rows = Array.prototype.slice.call(section.querySelectorAll(".cl-table tbody tr[data-cl-from]"));
+  var emptyRow = section.querySelector(".cl-empty");
+  var bigNum = section.querySelector(".cl-big b");
+  var bigSpan = section.querySelector(".cl-big span");
+  var chips = section.querySelectorAll(".cl-chip b");
+  var buttons = Array.prototype.slice.call(section.querySelectorAll(".cl-filter button"));
+  var mode = "period", ctx = null;
+
+  function key(s){
+    var p = String(s).split(".");
+    return (+p[2] || 0) * 10000 + (+p[1] || 0) * 100 + (+p[0] || 0);
+  }
+  function ctxLabel(){
+    if(!ctx || !ctx.from) return "29.09–15.11.2026";
+    var a = ctx.from.split(".").reverse().join("."), b = ctx.to.split(".").reverse().join(".");
+    if(a === b) return ctx.from.slice(0, 5) + ".2026";
+    return ctx.from.slice(0, 5) + "–" + ctx.to.slice(0, 5) + ".2026";
+  }
+  function apply(){
+    var from = mode === "all" ? null : (ctx && ctx.from ? key(ctx.from) : null);
+    var to = mode === "all" ? null : (ctx && ctx.to ? key(ctx.to) : null);
+    var shown = 0, dir = 0, out = 0;
+    rows.forEach(function(tr){
+      var a = key(tr.getAttribute("data-cl-from")), b = key(tr.getAttribute("data-cl-to"));
+      var visible = !from || (b >= from && a <= to);
+      tr.hidden = !visible;
+      if(visible){
+        shown++;
+        if(tr.getAttribute("data-cl-dir") === "1") dir++; else out++;
+      }
+    });
+    if(emptyRow) emptyRow.hidden = shown !== 0 || mode === "all";
+    if(bigNum) bigNum.textContent = String(shown);
+    if(bigSpan) bigSpan.textContent = "целевых лида · " + ctxLabel();
+    if(chips.length === 2){ chips[0].textContent = String(dir); chips[1].textContent = String(out); }
+    buttons.forEach(function(b){
+      var on = b.getAttribute("data-cl-filter") === mode;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){
+      mode = b.getAttribute("data-cl-filter");
+      apply();
+    });
+  });
+  window.updateCL = function(c){ ctx = c; apply(); };
+  if(window.__clCtx){ ctx = window.__clCtx; }
+  apply();
+})();
+</script>
   </section>
 
 
