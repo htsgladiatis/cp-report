@@ -172,7 +172,7 @@
   .lg .ln { width:14px; height:0; border-top:2px dashed var(--slate-500); position:relative; }
   .lg .ln::after { content:""; position:absolute; left:4px; top:-4px; width:6px; height:6px; border-radius:50%; background:var(--slate-500); }
   .chart-scroll { overflow-x:auto; }
-  .chart-wrap { position:relative; min-width:1940px; }
+  .chart-wrap { position:relative; min-width:1000px; }
   .chart-wrap svg { display:block; width:100%; height:auto; }
   .bar { fill:var(--brand); rx:4; transition:fill 150ms var(--ease-std), opacity 220ms var(--ease-std); cursor:pointer; }
   .bar:hover, .bar:focus-visible { fill:var(--brand-strong); }
@@ -1099,15 +1099,137 @@
     var SEG = { p1:["29.09.2026","02.10.2026"], p2:["05.10.2026","08.10.2026"], p3:["12.10.2026","16.10.2026"], p4:["19.10.2026","25.10.2026"], p5:["26.10.2026","31.10.2026"], p6:["02.11.2026","06.11.2026"], p7:["11.11.2026","15.11.2026"] };
     document.querySelectorAll("#chart .cl-seg").forEach(function(g){
       var key = g.getAttribute("data-period"), r = SEG[key], segLit;
-      if(current === "all") segLit = true;
+      if(!r) segLit = true;
+      else if(current === "all") segLit = true;
       else if(d.month) segLit = !(dateKey(r[1]) < dateKey(d.from) || dateKey(r[0]) > dateKey(d.to));
       else segLit = key === current;
       g.classList.toggle("dim", !segLit);
     });
   }
 
+
+  /* ---------- §2: окно «текущий период + 3 предыдущих» ---------- */
+  var T2 = null;
+  function cacheTable2(){
+    var table = document.querySelector("#s2 table.spec");
+    if(!table) return;
+    T2 = { rows: [] };
+    Array.prototype.forEach.call(table.tBodies[0].rows, function(tr){
+      var cells = Array.prototype.slice.call(tr.cells), map = {};
+      cells.slice(1).forEach(function(td){ map[td.getAttribute("data-col")] = td.outerHTML; });
+      T2.rows.push({ cls: tr.className, first: cells[0].outerHTML, map: map });
+    });
+  }
+  function windowCols(){
+    if(isMonthId(current)) return MONTHS.map(function(m){ return m.id; });
+    var ids = WEEKS.filter(function(w){ return w.id !== "all"; }).map(function(w){ return w.id; });
+    if(current === "all") return ids;
+    var i = ids.indexOf(current);
+    if(i < 0) return ids.slice(-4);
+    return ids.slice(Math.max(0, i - 3), i + 1);
+  }
+  function rebuildTable2(){
+    if(!T2) cacheTable2();
+    var table = document.querySelector("#s2 table.spec");
+    if(!table || !T2) return;
+    var cols = windowCols(), head = ['<tr><th>Показатель</th>'];
+    cols.forEach(function(id){
+      head.push('<th class="num" data-col="' + id + '">' + P[id].label.replace(" 2026", "") + "</th>");
+    });
+    head.push("</tr>");
+    table.tHead.innerHTML = head.join("");
+    var body = [];
+    T2.rows.forEach(function(r){
+      var cells = [r.first];
+      cols.forEach(function(id){ cells.push(r.map[id] || '<td class="num">—</td>'); });
+      body.push('<tr class="' + r.cls + '">' + cells.join("") + "</tr>");
+    });
+    table.tBodies[0].innerHTML = body.join("");
+  }
+
+  /* ---------- §3: график и таблица только за выбранный период ---------- */
+  var CHART = { left:56, right:940, base:258, top:28, w:1000, h:300, maxSpend:28700, maxClicks:40 };
+  function calendarDays(from, to){
+    var f = from.split("."), t = new Date(+f[2], +f[1] - 1, +f[0]), end = dateKey(to), out = [];
+    while(true){
+      var s = ("0" + t.getDate()).slice(-2) + "." + ("0" + (t.getMonth() + 1)).slice(-2) + "." + t.getFullYear();
+      out.push(s);
+      if(dateKey(s) >= end) break;
+      t.setDate(t.getDate() + 1);
+    }
+    return out;
+  }
+  function renderChart(){
+    var svg = document.getElementById("chart");
+    if(!svg) return;
+    var it = itemById(current);
+    var from = (it && it.from) || DAYS[0].date, to = (it && it.to) || DAYS[DAYS.length - 1].date;
+    var slots = calendarDays(from, to);
+    var n = slots.length, byDate = {};
+    DAYS.forEach(function(x){ byDate[x.date] = x; });
+    var step = (CHART.right - CHART.left) / Math.max(n - 1, 1);
+    var bw = Math.min(28, Math.max(5, step * 0.55));
+    var kSpend = (CHART.base - CHART.top) / CHART.maxSpend;
+    var kClick = (CHART.base - CHART.top) / CHART.maxClicks;
+    var out = ['<title>Расход и клики по дням</title><defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#EEF2F6"></rect><line x1="0" y1="0" x2="0" y2="8" stroke="#DDE3EA" stroke-width="2"></line></pattern></defs>'];
+    [258, 200.5, 143, 85.5, 28].forEach(function(y){
+      out.push('<line class="grid" x1="' + CHART.left + '" y1="' + y + '" x2="' + CHART.right + '" y2="' + y + '"></line>');
+    });
+    ["0", "7 тыс", "14 тыс", "21 тыс", "28 тыс"].forEach(function(lab, i){
+      out.push('<text class="axis" x="' + (CHART.left - 6) + '" y="' + [261, 203.5, 146, 88.5, 31][i] + '" text-anchor="end">' + lab + "</text>");
+    });
+    ["0", "10", "20", "30", "40"].forEach(function(lab, i){
+      out.push('<text class="axis" x="' + (CHART.right + 8) + '" y="' + [261, 203.5, 146, 88.5, 31][i] + '">' + lab + "</text>");
+    });
+    var pts = [], dots = [], labels = [];
+    slots.forEach(function(dt, i){
+      var x = CHART.left + step * i, cx = x + bw / 2, rec = byDate[dt];
+      if(!rec){
+        out.push('<rect x="' + (cx - bw / 2 - 6).toFixed(1) + '" y="' + CHART.top + '" width="' + (bw + 12).toFixed(1) + '" height="' + (CHART.base - CHART.top) + '" fill="url(#hatch)" opacity=".9"></rect>');
+        if(step > 44 && cx > CHART.left + 46) out.push('<text class="dlab we" x="' + cx.toFixed(1) + '" y="146" text-anchor="middle">нет строк</text>');
+      } else {
+        var h = Math.max(rec.spend * kSpend, 0.7);
+        out.push('<rect class="bar" data-date="' + dt + '" data-period="' + current + '" tabindex="0" x="' + x.toFixed(1) + '" y="' + (CHART.base - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) + '" aria-label="' + dt + ': расход ' + fmtRub2(rec.spend) + ' ₽, клики ' + rec.clicks + '"></rect>');
+        var cy = (CHART.base - rec.clicks * kClick).toFixed(1);
+        pts.push(cx.toFixed(1) + "," + cy);
+        dots.push('<circle class="cl-dot" cx="' + cx.toFixed(1) + '" cy="' + cy + '" r="3.5"></circle>');
+      }
+      var every = step >= 34 ? 1 : (step >= 20 ? 2 : 3);
+      if(i % every === 0 || i === n - 1){
+        labels.push('<text class="dlab" x="' + cx.toFixed(1) + '" y="276" text-anchor="middle">' + dt.slice(0, 5) + "</text>");
+      }
+    });
+    if(pts.length > 1) out.push('<g class="cl-seg"><polyline class="cl-line" points="' + pts.join(" ") + '"></polyline>' + dots.join("") + "</g>");
+    else if(dots.length) out.push('<g class="cl-seg">' + dots.join("") + "</g>");
+    svg.setAttribute("viewBox", "0 0 " + CHART.w + " " + CHART.h);
+    svg.innerHTML = out.concat(labels).join("");
+    bindChartBars();
+  }
+  function updateDailyTable(){
+    var d = P[current], it = itemById(current);
+    var body = document.querySelector("#s3 table.spec tbody");
+    if(!body) return;
+    Array.prototype.forEach.call(body.querySelectorAll("tr[data-date]"), function(tr){
+      var dt = tr.getAttribute("data-date");
+      tr.hidden = !(current === "all" || !it || !it.from || inRange(dt, it.from, it.to));
+    });
+    var tot = body.querySelector("tr.total");
+    if(tot && tot.cells.length === 9){
+      var c = tot.cells;
+      c[1].textContent = fmtRub2(d.spend);
+      c[2].textContent = fmtInt(d.clicks);
+      c[3].textContent = fmtInt(d.impr);
+      c[4].textContent = fmtPct2(d.ctr);
+      c[5].textContent = fmtInt(d.cpc);
+      c[6].textContent = (d.reach === null || d.reach === undefined) ? "—" : fmtInt(d.reach);
+      c[7].textContent = fmtPct2(d.bounce);
+      c[8].textContent = d.depth.toFixed(2).replace(".", ",");
+    }
+  }
+
   function setPeriod(p){
     current = p;
+    rebuildTable2(); updateDailyTable(); renderChart();
     updateKpi(); updateSummary(); updateStruct(); updateFunnel(); updateFocus(); updateChip();
     var it = itemById(p);
     window.__clCtx = { id:p, from:(it && it.from) || null, to:(it && it.to) || null };
@@ -1121,7 +1243,9 @@
   var wrap = document.getElementById("chartWrap");
   var tip = document.getElementById("chartTip");
   function showTip(bar){
-    var d = DAYS[+bar.getAttribute("data-i")];
+    var dt = bar.getAttribute("data-date"), d = null;
+    for(var si = 0; si < DAYS.length; si++){ if(DAYS[si].date === dt){ d = DAYS[si]; break; } }
+    if(!d) return;
     tip.innerHTML = "<b>" + d.date + "</b><br>Расход <span class='m'>" + fmtRub2(d.spend) + " ₽</span> · Клики <span class='m'>" + d.clicks +
       "</span><br>CTR <span class='m'>" + fmtPct2(d.ctr) + "</span> · CPC <span class='m'>" + group(d.cpc) + " ₽</span>" +
       "<br>Отказы <span class='m'>" + fmtPct2(d.bounce) + "</span> · Глубина <span class='m'>" + d.depth + "</span>";
@@ -1132,12 +1256,15 @@
     tip.classList.add("is-on");
   }
   function hideTip(){ tip.classList.remove("is-on"); }
-  document.querySelectorAll("#chart .bar").forEach(function(bar){
-    bar.addEventListener("mouseenter", function(){ showTip(bar); });
-    bar.addEventListener("mouseleave", hideTip);
-    bar.addEventListener("focus", function(){ showTip(bar); });
-    bar.addEventListener("blur", hideTip);
-  });
+  function bindChartBars(){
+    Array.prototype.forEach.call(document.querySelectorAll("#chart .bar"), function(bar){
+      bar.addEventListener("mouseenter", function(){ showTip(bar); });
+      bar.addEventListener("mouseleave", hideTip);
+      bar.addEventListener("focus", function(){ showTip(bar); });
+      bar.addEventListener("blur", hideTip);
+    });
+  }
+  bindChartBars();
 
   /* ---------- print safety ---------- */
   window.addEventListener("beforeprint", function(){
