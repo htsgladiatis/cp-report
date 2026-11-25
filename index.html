@@ -1635,6 +1635,8 @@
     #s6 .pl-table tbody tr:nth-child(even) td { background:#F8FAFD; }
     #s6 .pl-table tbody tr:hover td { background:var(--brand-soft); }
     #s6 .pl-table td.pl-name { font-weight:600; }
+    #s6 .pl-table td.pl-name a { color:var(--brand-strong); text-decoration:none; border-bottom:1px solid rgba(0,76,204,.22); padding-bottom:1px; transition:border-color 150ms var(--ease-std); }
+    #s6 .pl-table td.pl-name a:hover { border-bottom-color:currentColor; }
     #s6 .pl-table td.pl-num { font-family:var(--font-mono); font-variant-numeric:tabular-nums; text-align:right; color:var(--ink-soft); }
     #s6 .pl-table th.pl-num-h { text-align:right; }
     #s6 .pl-pill { display:inline-block; font-size:11.5px; font-weight:600; line-height:1; padding:4px 10px; border-radius:var(--r-pill); white-space:nowrap; }
@@ -1642,6 +1644,10 @@
     #s6 .pl-pill.next { background:var(--brand-soft); color:var(--brand-strong); box-shadow:inset 0 0 0 1px rgba(0,76,204,.28); }
     #s6 .pl-pill.work { background:var(--surface-2); color:var(--ink-soft); box-shadow:inset 0 0 0 1px var(--border); }
     #s6 .pl-note { margin-top:12px; font-size:12.5px; color:var(--slate-500); }
+    #s6 .pl-link-row { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:14px; }
+    #s6 .pl-link { display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--brand-strong); text-decoration:none; border-bottom:1px solid rgba(0,76,204,.22); padding-bottom:1px; transition:border-color 150ms var(--ease-std); }
+    #s6 .pl-link:hover { border-bottom-color:currentColor; }
+    #s6 .pl-link span { font-family:var(--font-mono); font-size:11px; color:var(--slate-500); font-weight:500; }
 
     @media (max-width:640px) {
       #s6 .pl-table { min-width:560px; font-size:12.5px; }
@@ -1675,14 +1681,17 @@
           </thead>
           <tbody>
             <tr><td class="pl-name">ПСК</td><td>САБ</td><td class="pl-num">100</td><td><span class="pl-pill go">договор на подписании</span></td></tr>
-            <tr><td class="pl-name">Агротек</td><td>Работничек</td><td class="pl-num">16</td><td><span class="pl-pill go">договор на подписании</span></td></tr>
-            <tr><td class="pl-name">Митхаус</td><td>Плодерс</td><td class="pl-num">30</td><td><span class="pl-pill go">договор на подписании</span></td></tr>
+            <tr><td class="pl-name"><a href="https://comandapro.bitrix24.ru/crm/lead/details/139077/" target="_blank" rel="noopener">Агротек</a></td><td>Работничек</td><td class="pl-num">16</td><td><span class="pl-pill go">договор на подписании</span></td></tr>
+            <tr><td class="pl-name"><a href="https://comandapro.bitrix24.ru/crm/lead/details/137967/" target="_blank" rel="noopener">Митхаус</a></td><td>Плодерс</td><td class="pl-num">30</td><td><span class="pl-pill go">договор на подписании</span></td></tr>
             <tr><td class="pl-name">Алиди</td><td>САБ</td><td class="pl-num">20</td><td><span class="pl-pill next">встреча впереди</span></td></tr>
             <tr><td class="pl-name">12 сделок</td><td>—</td><td class="pl-num">—</td><td><span class="pl-pill work">в проработке</span></td></tr>
           </tbody>
         </table>
       </div>
-      <p class="pl-note">На подписании 146 человек, по встрече впереди ещё 20. По 12 сделкам в проработке разбивки по численности и брендам пока нет.</p>
+      <div class="pl-link-row">
+        <a class="pl-link" href="https://comandapro.bitrix24.ru/crm/deal/kanban/category/3/" target="_blank" rel="noopener">Воронка «Аутсорсинг/Аутстаффинг» в CRM ↗ <span>все 16 сделок</span></a>
+      </div>
+      <p class="pl-note">На подписании 146 человек, по встрече впереди ещё 20. По 12 сделкам в проработке разбивки по численности и брендам пока нет. Агротек и Митхаус подсвечены ссылкой на карточку лида в CRM, ПСК и Алиди в лидах не нашлись.</p>
     </div>
   </section>
 </div>
